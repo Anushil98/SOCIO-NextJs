@@ -1,0 +1,138 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  height: 100%;
+    background-image: url("https://www.netpremacy.com/wp-content/uploads/2018/09/Background-website-01.jpg");
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.MainLayout{
+  display: flex;
+  /* background-color: red; */
+  flex-direction: column;
+  justify-content: start;
+  height: 100%;
+  overflow: hidden;
+}
+
+.NavBar{
+  background-color: rgba(163,159,159);
+  color: white;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 10%;
+  width: 100%;
+}
+.NavBar div{
+  height: 100%;
+}
+
+.ContentArea{
+  margin-top: 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: none;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.leftSideBar{
+  height: 100%;
+  
+  background-color: none;
+  width: 0;
+}
+.Middle{
+  background-color: none;
+  align-items: center;
+  width: 100%;  height: 100%;
+  margin: 0 2% 0 2%;
+
+}
+.rightSideBar{
+  background-color: none;
+  align-items: center;
+  width: 0;  height: 100%;
+
+}
+@media only screen and (min-width: 840px) {
+  .rightSideBar {
+    width: 25%;
+  }
+  .leftSideBar{
+    width: 25%;
+  }
+  .Middle{
+    width: 60%;
+  }
+  
+}
+.Panel{
+  overflow:hidden;
+  height: 100%;
+  padding:5%;
+  margin: 10%;
+  background-color: rgba(0,0,0,0);
+  /* border-top-right-radius: 5%;
+  border-top-left-radius: 5%; */
+  /* box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.4); */
+}
+
+#MidArea{
+  margin:-4% -8% 0 -8%;
+}
+
+.Panel:hover{
+  overflow:scroll;
+  overflow-x:hidden;
+  overflow-y:scroll;
+}
+
+.SideCard{
+  background-color: rgba(235, 235, 235, 0.8);
+  height: 200px;
+  margin-bottom: 10%;
+  padding: 2%;
+  border-radius: 5%;
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.4); 
+}

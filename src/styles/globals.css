@@ -38,14 +38,87 @@ a {
   position: fixed;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   height: 10%;
   width: 100%;
 }
-.NavBar div{
+.NavBar-left{
   height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+.NavBar-left div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10%;
+}
+.NavBar-Right{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-left: 20%;
+  margin-right: 10px;
+}
+.NavBar-Buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-left: 10%;
 }
 
+.NavBar-Buttons-Sub{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left:10%;
+}
+.NavBar-Buttons-Sub *{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.NavBarButton{
+  display: none;
+}
+.NavBarButton.Mobile{
+  display: inherit;
+  border-radius: 50%;
+  padding: 10%;
+  height: 50px;
+  width: 50px;
+  color: black;
+  text-align: center;
+  border-style: solid;
+}
+.NavBarButton.Mobile:hover{
+  background-color: white;
+}
+@media only screen and (min-width: 640px) {
+.NavBarButton.Mobile{
+  display: none;
+}
+.NavBarButton:hover{
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+}
+.NavBarButton{
+  display: inherit;
+  border-radius: 10%;
+  padding: 10%;
+  margin-right: 10px;
+  height: 30px;
+  width: 70px;
+  color: black;
+  text-align: center;
+  border-style: solid;
+}
+}
 .ContentArea{
   margin-top: 40px;
   height: 100%;
@@ -86,6 +159,12 @@ a {
     width: 60%;
   }
   
+}
+.Middle .Panel::-webkit-scrollbar {
+  width: 0px;
+}
+.Middle .Panel::-webkit-scrollbar-thumb {
+  display: none;
 }
 .Panel{
   overflow:hidden;

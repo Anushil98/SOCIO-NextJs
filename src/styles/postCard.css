@@ -1,0 +1,84 @@
+@media only screen and (min-width: 660px) {
+	.postCard {
+		display: flex;
+		/* grid-template-areas: 'top-left top-left top-left top-right' 'main main main main' 'main main main main'
+			'main main main main' 'bottom-left bottom-left bottom-left bottom-right'; */
+		width: 100%;
+		height: 100%;
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+}
+.postCard {
+	display: flex;
+	/* grid-template-areas: 'top-left top-left top-left top-left top-right' 'main main main main main'
+		'main main main main main' 'main main main main main'
+		'bottom-left bottom-left bottom-left bottom-left bottom-right'; */
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.postCardtop,
+.postCardBottom {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.UserCard {
+}
+.TripleDot {
+	margin: auto;
+}
+.PostDetails {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+}
+.PostText {
+	/* border-style: dotted; */
+	height: auto;
+}
+.PostMedia {
+	height: 100%;
+	width: auto;
+	border-style: dotted;
+	display: flex;
+	/* flex-direction: row;
+	justify-content: space-evenly; */
+	flex-wrap: wrap;
+}
+.PostMedia .column {
+	flex: 50%;
+	max-width: 50%;
+	height: 100px;
+	max-height: 100%;
+	padding: 0 4px;
+}
+.PostMedia img {
+	/* margin-top: 8px; */
+	vertical-align: middle;
+	width: 100%;
+}
+.Action {
+	grid-area: bottom-left;
+}
+.CommentArea {
+	grid-area: bottom-right;
+}
+
+.truncate {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.wrap {
+	width: 100%;
+	padding-right: 1%;
+	white-space: wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

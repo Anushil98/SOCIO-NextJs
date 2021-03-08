@@ -12,25 +12,44 @@ export default function PostCard(props) {
 			</div>
 
 			<div className="PostDetails">
-				<div className="PostText wrap">{JSON.stringify(props.post.postDetails.text)}</div>
+				<div className="PostText wrap">{props.post.postDetails.text}</div>
 				<div className="PostMedia">
 					<div className="column">
 						{props.post.postDetails.media.map((media, index) => {
-							if ((index + 1) % 2 == 0)
+							if ((index + 1) % 2 == 0) {
 								return (
-									// <div key={media.id}>
-									<img key={media.id} src={media.url} />
-									/* </div> */
+									<div
+										key={media.id}
+										style={{
+											height: (100 / props.post.postDetails.media.length * 2).toString(10) + '%',
+											maxHeight:
+												(100 / props.post.postDetails.media.length * 2).toString(10) + '%',
+											width: '100%',
+											padding: '2%'
+										}}
+									>
+										<img key={media.id} src={media.url} />
+									</div>
 								);
+							}
 						})}
 					</div>
 					<div className="column">
 						{props.post.postDetails.media.map((media, index) => {
 							if ((index + 1) % 2 != 0)
 								return (
-									// <div key={media.id}>
-									<img key={media.id} src={media.url} />
-									/* </div> */
+									<div
+										key={media.id}
+										style={{
+											height: (100 / props.post.postDetails.media.length * 2).toString(10) + '%',
+											maxHeight:
+												(100 / props.post.postDetails.media.length * 2).toString(10) + '%',
+											width: '100%',
+											padding: '2%'
+										}}
+									>
+										<img key={media.id} src={media.url} />
+									</div>
 								);
 						})}
 					</div>

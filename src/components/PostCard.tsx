@@ -13,47 +13,83 @@ export default function PostCard(props) {
 
 			<div className="PostDetails">
 				<div className="PostText wrap">{props.post.postDetails.text}</div>
-				<div className="PostMedia">
-					<div className="column">
-						{props.post.postDetails.media.map((media, index) => {
-							if ((index + 1) % 2 == 0) {
-								return (
-									<div
-										key={media.id}
-										style={{
-											height: (100 / props.post.postDetails.media.length * 2).toString(10) + '%',
-											maxHeight:
-												(100 / props.post.postDetails.media.length * 2).toString(10) + '%',
-											width: '100%',
-											padding: '2%'
-										}}
-									>
-										<img key={media.id} src={media.url} />
-									</div>
-								);
-							}
-						})}
+				{props.post.postDetails.media.length % 2 == 0 ? (
+					<div className="PostMedia">
+						<div className="column">
+							{props.post.postDetails.media.map((media, index) => {
+								if ((index + 1) % 2 == 0) {
+									return (
+										<div
+											key={media.id}
+											style={{
+												height: '310px',
+												width: '310px',
+												padding: '2%'
+											}}
+										>
+											<img key={media.id} src={media.url} />
+										</div>
+									);
+								}
+							})}
+						</div>
+						<div className="column">
+							{props.post.postDetails.media.map((media, index) => {
+								if ((index + 1) % 2 != 0)
+									return (
+										<div
+											key={media.id}
+											style={{
+												height: '310px',
+												width: '310px',
+												padding: '2%'
+											}}
+										>
+											<img key={media.id} src={media.url} />
+										</div>
+									);
+							})}
+						</div>
 					</div>
-					<div className="column">
-						{props.post.postDetails.media.map((media, index) => {
-							if ((index + 1) % 2 != 0)
-								return (
-									<div
-										key={media.id}
-										style={{
-											height: (100 / props.post.postDetails.media.length * 2).toString(10) + '%',
-											maxHeight:
-												(100 / props.post.postDetails.media.length * 2).toString(10) + '%',
-											width: '100%',
-											padding: '2%'
-										}}
-									>
-										<img key={media.id} src={media.url} />
-									</div>
-								);
-						})}
+				) : (
+					<div className="PostMediaEven">
+						<div className="column">
+							{props.post.postDetails.media.map((media, index) => {
+								if (index + 1 == 1) {
+									return (
+										<div
+											key={media.id}
+											style={{
+												height: '310px',
+												width: '620px',
+												padding: '2%'
+											}}
+										>
+											<img key={media.id} src={media.url} />
+										</div>
+									);
+								}
+							})}
+						</div>
+						<div className="column">
+							{props.post.postDetails.media.map((media, index) => {
+								if (index + 1 > 1)
+									return (
+										<div
+											key={media.id}
+											style={{
+												height: '310px',
+												width: '310px',
+												padding: '2%'
+											}}
+										>
+											<img key={media.id} src={media.url} />
+										</div>
+									);
+							})}
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 			<div className="postCardBottom">
 				<div className="Action">action buttons</div>

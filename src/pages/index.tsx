@@ -38,7 +38,7 @@ export default function Home() {
 									media: [
 										{
 											url:
-												'https://resi.ze-robot.com/dl/mo/moon-background-from-the-50k-shot-mosaic-1280%C3%97800.jpg',
+												'https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 											id: 1
 										},
 										{
@@ -61,7 +61,38 @@ export default function Home() {
 							}}
 						/>
 					</SideCard>
-					<SideCard>hi</SideCard>
+					<SideCard>
+						<PostCard
+							post={{
+								user: { FirstName: 'Anushil', LastName: 'Ghosh Dastidar' },
+								postDetails: {
+									text: 'This is a post',
+									media: [
+										{
+											url:
+												'https://resi.ze-robot.com/dl/mo/moon-background-from-the-50k-shot-mosaic-1280%C3%97800.jpg',
+											id: 1
+										},
+										{
+											url:
+												'https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+											id: 2
+										},
+										{
+											url:
+												'https://resi.ze-robot.com/dl/mo/moon-background-from-the-50k-shot-mosaic-1280%C3%97800.jpg',
+											id: 3
+										}
+										// {
+										// 	url:
+										// 		'https://resi.ze-robot.com/dl/mo/moon-background-from-the-50k-shot-mosaic-1280%C3%97800.jpg',
+										// 	id: 4
+										// }
+									]
+								}
+							}}
+						/>
+					</SideCard>
 					<SideCard>hi</SideCard>
 				</Panel>
 			}

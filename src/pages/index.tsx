@@ -9,6 +9,8 @@ import checkAuth from '../helpers/checkAuth';
 
 export default function Home() {
 	const [ Layout, setLayout ] = useState(0);
+	// const wrapper = useRef(null);
+	// useOutsideAlerter(wrapper);
 	useEffect(() => {
 		if (checkAuth() === true) {
 			setLayout(1);
@@ -22,7 +24,9 @@ export default function Home() {
 		<MainLayout
 			leftSideBar={
 				<Panel>
-					<SideCard>hi</SideCard>
+					<SideCard>
+						<div>click me</div>
+					</SideCard>
 					<SideCard>hi</SideCard>
 					<SideCard>hi</SideCard>
 				</Panel>

@@ -1,6 +1,17 @@
-import React from 'react';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+import React, { useState } from 'react';
 
 export default function PostCard(props) {
+	const [ optionsShow, setoptionsShow ] = useState(0);
+	const MenuOpenHandler = () => {
+		if (optionsShow) {
+			setoptionsShow(0);
+		} else {
+			setoptionsShow(1);
+		}
+	};
+
 	return (
 		<div className="postCard">
 			<div className="postCardtop">
@@ -8,7 +19,17 @@ export default function PostCard(props) {
 					<span>{props.post.user.FirstName}</span>
 					<span>{props.post.user.LastName}</span>
 				</div>
-				<div className="TripleDot">options</div>
+				<div className="TripleDot">
+					<KeyboardArrowDownOutlinedIcon className="BurgerArrow" onClick={() => MenuOpenHandler()} />
+					<div style={{ display: optionsShow ? 'block' : 'none' }} className="BurgerOption">
+						<div>
+							<div>Show</div>
+							<CancelOutlinedIcon onClick={() => MenuOpenHandler()} />
+						</div>
+						<div>Delete</div>
+						<div>Share</div>
+					</div>
+				</div>
 			</div>
 
 			<div className="PostDetails">

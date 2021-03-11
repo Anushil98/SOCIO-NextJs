@@ -20,8 +20,10 @@ export default function PostCard(props) {
 					<span>{props.post.user.LastName}</span>
 				</div>
 				<div className="TripleDot">
-					<KeyboardArrowDownOutlinedIcon className="BurgerArrow" onClick={() => MenuOpenHandler()} />
-					<div style={{ display: optionsShow ? 'block' : 'none' }} className="BurgerOption">
+					<div
+						// style={{ transition: 'visibility 1s', visibility: optionsShow ? 'visible' : 'hidden' }}
+						className={optionsShow ? 'BurgerOption show' : 'BurgerOption hide'}
+					>
 						<div>
 							<div>Show</div>
 							<CancelOutlinedIcon onClick={() => MenuOpenHandler()} />
@@ -29,6 +31,7 @@ export default function PostCard(props) {
 						<div>Delete</div>
 						<div>Share</div>
 					</div>
+					<KeyboardArrowDownOutlinedIcon className="BurgerArrow" onClick={() => MenuOpenHandler()} />
 				</div>
 			</div>
 

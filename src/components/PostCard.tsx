@@ -1,15 +1,19 @@
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import useOutsideAlerter from '../helpers/outsideClick';
 
 export default function PostCard(props) {
 	const [ optionsShow, setoptionsShow ] = useState(0);
+	const wrapper = useRef(null);
+	useOutsideAlerter(wrapper, setoptionsShow);
 	const MenuOpenHandler = () => {
+		console.log('menu event listener e', optionsShow);
 		if (optionsShow) {
 			setoptionsShow(0);
 		} else {
 			setoptionsShow(1);
 		}
+		// console.log('menu event listener ex', optionsShow);
 	};
 
 	return (
@@ -20,18 +24,16 @@ export default function PostCard(props) {
 					<span>{props.post.user.LastName}</span>
 				</div>
 				<div className="TripleDot">
-					<div
-						// style={{ transition: 'visibility 1s', visibility: optionsShow ? 'visible' : 'hidden' }}
-						className={optionsShow ? 'BurgerOption show' : 'BurgerOption hide'}
-					>
+					<div className={optionsShow ? 'BurgerOption show' : 'BurgerOption hide'} ref={wrapper}>
 						<div>
 							<div>Show</div>
-							<CancelOutlinedIcon onClick={() => MenuOpenHandler()} />
 						</div>
 						<div>Delete</div>
 						<div>Share</div>
 					</div>
-					<KeyboardArrowDownOutlinedIcon className="BurgerArrow" onClick={() => MenuOpenHandler()} />
+					<div className="BurgerArrow" onClick={() => MenuOpenHandler()}>
+						<KeyboardArrowDownOutlinedIcon />
+					</div>
 				</div>
 			</div>
 

@@ -26,12 +26,62 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	height: 20%;
 }
 .UserCard {
-	flex: 50%;
+	flex: 60%;
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	/* border-style: dashed */
+}
+.UserCard div:nth-child(1) {
+	height: 100%;
+	width: 20%;
+	background-color: rgba(235, 235, 235, 0.8);
+	margin-right: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	/* position: relative; */
+	/* border-style: dashed; */
+}
+
+.UserCard div:nth-child(2) {
+	height: auto;
+	width: 80%;
+	background-color: none;
+	margin-right: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	/* border-style: dashed; */
+}
+.UserCard div:nth-child(1) div {
+	height: 100%;
+	min-height: 45px;
+	min-width: 45px;
+	width: 100%;
+}
+.UserCard a {
+	/* border-style: dashed */
+	color: black;
+	text-align: left;
+	height: fit-content;
+	font-weight: 500;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 400;
+	text-shadow: 1px 1px 1px lightgray;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.UserCard > a:hover {
+	font-weight: 500;
+	text-shadow: 5px 5px 5px lightgray;
 }
 .TripleDot {
-	flex: 50%;
+	flex: 40%;
 	/* margin: auto; */
 	position: relative;
 	/* border-style: dashed; */

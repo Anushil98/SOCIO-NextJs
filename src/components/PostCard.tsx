@@ -1,4 +1,5 @@
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import useOutsideAlerter from '../helpers/outsideClick';
 
@@ -20,8 +21,21 @@ export default function PostCard(props) {
 		<div className="postCard">
 			<div className="postCardtop">
 				<div className="UserCard truncate">
-					<span>{props.post.user.FirstName}</span>
-					<span>{props.post.user.LastName}</span>
+					<div>
+						<div>
+							<img
+								src={
+									props.post.user.avatar ||
+									'https://p1.hiclipart.com/preview/201/489/299/global-warming-icon-ozone-icon-world-circle-logo-earth-symbol-interior-design-png-clipart.jpg'
+								}
+							/>
+						</div>
+					</div>
+					<div>
+						<Link href={`/${props.post.user.username}`}>
+							<a>{props.post.user.FirstName + ' ' + props.post.user.LastName}</a>
+						</Link>
+					</div>
 				</div>
 				<div className="TripleDot">
 					<div className={optionsShow ? 'BurgerOption show' : 'BurgerOption hide'} ref={wrapper}>

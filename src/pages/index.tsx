@@ -36,7 +36,12 @@ export default function Home() {
 					<SideCard>
 						<PostCard
 							post={{
-								user: { FirstName: 'Anushil', LastName: 'Ghosh Dastidar' },
+								user: {
+									FirstName: 'Anushil',
+									LastName: 'Ghosh Dastidar',
+									username: 'agashi',
+									id: 'someid'
+								},
 								postDetails: {
 									text: 'This is a post',
 									media: [

@@ -30,6 +30,7 @@ export default function PostCard(props) {
 								}
 							/>
 						</div>
+						<div />
 					</div>
 					<div>
 						<Link href={`/${props.post.user.username}`}>

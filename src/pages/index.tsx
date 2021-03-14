@@ -43,7 +43,8 @@ export default function Home() {
 									id: 'someid'
 								},
 								postDetails: {
-									text: 'This is a post',
+									text:
+										'This is a post which is a very long post and it has to be a very long post because it is important forn the comany to grow.',
 									media: [
 										{
 											url:

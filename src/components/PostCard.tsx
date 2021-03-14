@@ -1,4 +1,7 @@
+import { CommentOutlined, Gesture, ThumbDownAlt, ThumbDownAltOutlined } from '@material-ui/icons';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import useOutsideAlerter from '../helpers/outsideClick';
@@ -20,7 +23,7 @@ export default function PostCard(props) {
 	return (
 		<div className="postCard">
 			<div className="postCardtop">
-				<div className="UserCard truncate">
+				<div className="UserCard ">
 					<div>
 						<div>
 							<img
@@ -133,8 +136,21 @@ export default function PostCard(props) {
 				)}
 			</div>
 			<div className="postCardBottom">
-				<div className="Action">action buttons</div>
-				<div className="CommentArea">comments</div>
+				<div className="Action">
+					<div>{props.post.postDetails.isUpvoted ? <ThumbUpAltIcon /> : <ThumbUpAltOutlinedIcon />}</div>
+					<div>{props.post.postDetails.isUpvoted ? <ThumbDownAlt /> : <ThumbDownAltOutlined />}</div>
+					<div>
+						<Gesture />
+					</div>
+				</div>
+				<div className="CommentArea">
+					<div>
+						<CommentOutlined />
+					</div>
+					<div>
+						<div>Comment</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

@@ -1,13 +1,14 @@
-import { CommentOutlined, Gesture, ThumbDownAlt, ThumbDownAltOutlined } from '@material-ui/icons';
+import { CancelOutlined, CommentOutlined, Gesture, ThumbDownAlt, ThumbDownAltOutlined } from '@material-ui/icons';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useOutsideAlerter from '../helpers/outsideClick';
 
 export default function PostCard(props) {
 	const [ optionsShow, setoptionsShow ] = useState(0);
+	const [ Canvas, setCanvas ] = useState(0);
 	const wrapper = useRef(null);
 	useOutsideAlerter(wrapper, setoptionsShow);
 	const MenuOpenHandler = () => {
@@ -19,9 +20,53 @@ export default function PostCard(props) {
 		}
 		// console.log('menu event listener ex', optionsShow);
 	};
+	const draw = (X, Y) => {
+		const can = document.getElementById('canvas') as HTMLCanvasElement;
+		const ctx = can.getContext('2d');
+		console.log(X, Y);
+		ctx.beginPath();
+		ctx.arc(X, Y, 10, 0, 2 * Math.PI);
+		ctx.stroke();
+	};
+	useEffect(
+		() => {
+			console.log(Canvas);
+			if (Canvas === 1) {
+				document.getElementById('canvas').addEventListener('click', (e) => {
+					console.log(e);
+					var rect = (e.target as HTMLElement).getBoundingClientRect();
+					const can = document.getElementById('canvas') as HTMLCanvasElement;
+					const scaleX = can.width / rect.width; // relationship bitmap vs. element for X
+					const scaleY = can.height / rect.height; // relationship bitmap vs. element for Y
+					let x = (e.clientX - rect.left) * scaleX;
+					let y = (e.clientY - rect.top) * scaleY;
+					draw(x, y);
+				});
+			}
+			if (Canvas === 0) {
+				document.getElementById('canvas').removeEventListener('click', () => {
+					console.log('Event Over');
+				});
+				const can = document.getElementById('canvas') as HTMLCanvasElement;
+				const ctx = can.getContext('2d');
+				ctx.clearRect(0, 0, can.width, can.height);
+			}
+		},
+		[ Canvas ]
+	);
+	const showCanvas = () => {
+		setCanvas(Canvas === 0 ? 1 : 0);
+	};
 
 	return (
 		<div className="postCard">
+			<canvas id="canvas" style={{ display: Canvas ? 'block' : 'none' }} />
+			<div id="canvas-cancel">
+				<CancelOutlined
+					onClick={() => showCanvas()}
+					style={{ display: Canvas ? 'block' : 'none', height: '50px', width: '50px' }}
+				/>
+			</div>
 			<div className="postCardtop">
 				<div className="UserCard ">
 					<div>
@@ -140,7 +185,7 @@ export default function PostCard(props) {
 					<div>{props.post.postDetails.isUpvoted ? <ThumbUpAltIcon /> : <ThumbUpAltOutlinedIcon />}</div>
 					<div>{props.post.postDetails.isUpvoted ? <ThumbDownAlt /> : <ThumbDownAltOutlined />}</div>
 					<div>
-						<Gesture />
+						<Gesture onClick={() => showCanvas()} />
 					</div>
 				</div>
 				<div className="CommentArea">

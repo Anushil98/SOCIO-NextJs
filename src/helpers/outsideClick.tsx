@@ -10,12 +10,12 @@ export default function useOutsideAlerter(ref, setChange: React.Dispatch<React.S
          * Alert if clicked on outside of element
          */
 			function handleClickOutside(event) {
-				console.log(ref);
-				console.log(event);
+				// console.log(ref);
+				// console.log(event);
 				if (ref.current && !ref.current.contains(event.target)) {
 					// alert('You clicked outside of me!');
 					const prev = (ref.current as HTMLElement).className;
-					console.log((ref.current as HTMLElement).className);
+					// console.log((ref.current as HTMLElement).className);
 					(ref.current as HTMLElement).className =
 						(ref.current as HTMLElement).className.split(' ').pop() === 'hide'
 							? (ref.current as HTMLElement).className
@@ -24,7 +24,7 @@ export default function useOutsideAlerter(ref, setChange: React.Dispatch<React.S
 									.slice(0, (ref.current as HTMLElement).className.split(' ').length - 1)
 									.concat([ 'hide' ])
 									.join(' ');
-					console.log((ref.current as HTMLElement).className);
+					// console.log((ref.current as HTMLElement).className);
 					if (prev !== (ref.current as HTMLElement).className) {
 						if (prev.split(' ').pop() === 'show') setChange(0);
 					}

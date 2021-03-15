@@ -19,6 +19,31 @@
 	max-height: 100%;
 	flex-direction: column;
 	justify-content: flex-start;
+	position: relative;
+	z-index: 2;
+}
+#canvas {
+	height: 100%;
+	width: 100%;
+	min-width: max-content;
+	border-style: dashed;
+	margin: auto;
+	background-color: white;
+	position: absolute;
+	z-index: 9999;
+	opacity: 0.8;
+}
+#canvas-cancel {
+	height: max-content;
+	width: max-content;
+	/* border-style: dashed; */
+	margin: auto;
+	background-color: none;
+	position: absolute;
+	z-index: 9999;
+	opacity: 0.8;
+	left: 90%;
+	top: 10px;
 }
 
 .postCardtop,

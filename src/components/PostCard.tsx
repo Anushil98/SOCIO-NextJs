@@ -10,6 +10,7 @@ export default function PostCard(props) {
 	const [ optionsShow, setoptionsShow ] = useState(0);
 	const [ Canvas, setCanvas ] = useState(0);
 	const wrapper = useRef(null);
+	let startDraw = 0;
 	useOutsideAlerter(wrapper, setoptionsShow);
 	const MenuOpenHandler = () => {
 		console.log('menu event listener e', optionsShow);
@@ -25,26 +26,76 @@ export default function PostCard(props) {
 		const ctx = can.getContext('2d');
 		console.log(X, Y);
 		ctx.beginPath();
-		ctx.arc(X, Y, 10, 0, 2 * Math.PI);
+		ctx.arc(X + 0.5, Y, 10.5, 0, 2 * Math.PI);
 		ctx.stroke();
+	};
+	const changeState = () => {
+		startDraw = startDraw === 0 ? 1 : 0;
 	};
 	useEffect(
 		() => {
 			console.log(Canvas);
 			if (Canvas === 1) {
-				document.getElementById('canvas').addEventListener('click', (e) => {
-					console.log(e);
-					var rect = (e.target as HTMLElement).getBoundingClientRect();
-					const can = document.getElementById('canvas') as HTMLCanvasElement;
-					const scaleX = can.width / rect.width; // relationship bitmap vs. element for X
-					const scaleY = can.height / rect.height; // relationship bitmap vs. element for Y
-					let x = (e.clientX - rect.left) * scaleX;
-					let y = (e.clientY - rect.top) * scaleY;
-					draw(x, y);
+				document.getElementById('canvas').addEventListener('mousedown', (e) => {
+					console.log('mousedown', startDraw);
+					changeState();
+				});
+				document.getElementById('canvas').addEventListener('mouseup', (e) => {
+					console.log(startDraw, 'mouseup');
+					changeState();
+				});
+				document.getElementById('canvas').addEventListener('mousemove', (e) => {
+					// console.log(e);
+					if (startDraw === 1) {
+						console.log('drawing');
+						var rect = (e.target as HTMLElement).getBoundingClientRect();
+						const can = document.getElementById('canvas') as HTMLCanvasElement;
+						const scaleX = can.width / rect.width; // relationship bitmap vs. element for X
+						const scaleY = can.height / rect.height; // relationship bitmap vs. element for Y
+						let x = (e.clientX - rect.left) * scaleX;
+						let y = (e.clientY - rect.top) * scaleY;
+						draw(x, y);
+					}
+				});
+				document.getElementById('canvas').addEventListener('touchstart', (e) => {
+					console.log('mousedown', startDraw);
+					changeState();
+				});
+				document.getElementById('canvas').addEventListener('touchend', (e) => {
+					console.log(startDraw, 'mouseup');
+					changeState();
+				});
+				document.getElementById('canvas').addEventListener('touchmove', (e) => {
+					// console.log(e);
+					if (startDraw === 1) {
+						console.log('drawing');
+						var rect = (e.target as HTMLElement).getBoundingClientRect();
+						const can = document.getElementById('canvas') as HTMLCanvasElement;
+						const scaleX = can.width / rect.width; // relationship bitmap vs. element for X
+						const scaleY = can.height / rect.height; // relationship bitmap vs. element for Y
+						let x = (e.clientX - rect.left) * scaleX;
+						let y = (e.clientY - rect.top) * scaleY;
+						draw(x, y);
+					}
 				});
 			}
 			if (Canvas === 0) {
-				document.getElementById('canvas').removeEventListener('click', () => {
+				document.getElementById('canvas').removeEventListener('mouseup', () => {
+					console.log('Event Over');
+				});
+				document.getElementById('canvas').removeEventListener('mousedown', () => {
+					console.log('Event Over');
+				});
+				document.getElementById('canvas').removeEventListener('mousemove', () => {
+					console.log('Event Over');
+				});
+				document.getElementById('canvas').removeEventListener('touchstart', () => {
+					console.log('Event Over');
+				});
+				document.getElementById('canvas').removeEventListener('touchmove', () => {
+					console.log('Event Over');
+				});
+				document.getElementById('canvas').removeEventListener('touchend', () => {
 					console.log('Event Over');
 				});
 				const can = document.getElementById('canvas') as HTMLCanvasElement;

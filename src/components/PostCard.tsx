@@ -66,15 +66,15 @@ export default function PostCard(props) {
 					changeState();
 				});
 				document.getElementById('canvas').addEventListener('touchmove', (e) => {
-					// console.log(e);
+					console.log(e);
 					if (startDraw === 1) {
 						console.log('drawing');
 						var rect = (e.target as HTMLElement).getBoundingClientRect();
 						const can = document.getElementById('canvas') as HTMLCanvasElement;
 						const scaleX = can.width / rect.width; // relationship bitmap vs. element for X
 						const scaleY = can.height / rect.height; // relationship bitmap vs. element for Y
-						let x = (e.clientX - rect.left) * scaleX;
-						let y = (e.clientY - rect.top) * scaleY;
+						let x = (e.touches[0].clientX - rect.left) * scaleX;
+						let y = (e.touches[0].clientY - rect.top) * scaleY;
 						draw(x, y);
 					}
 				});

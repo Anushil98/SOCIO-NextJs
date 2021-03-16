@@ -36,6 +36,7 @@ export default function PostCard(props) {
 		() => {
 			console.log(Canvas);
 			if (Canvas === 1) {
+				document.getElementsByTagName('body').item(0).style.overscrollBehaviorY = 'contain';
 				document.getElementById('canvas').addEventListener('mousedown', (e) => {
 					console.log('mousedown', startDraw);
 					changeState();
@@ -80,6 +81,7 @@ export default function PostCard(props) {
 				});
 			}
 			if (Canvas === 0) {
+				document.getElementsByTagName('body').item(0).style.overscrollBehaviorY = 'auto';
 				document.getElementById('canvas').removeEventListener('mouseup', () => {
 					console.log('Event Over');
 				});

@@ -13,6 +13,9 @@ body {
 	background-size: cover;
 	z-index: 1;
 }
+body {
+	overscroll-behavior-y: contain;
+}
 
 a {
 	color: inherit;

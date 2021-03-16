@@ -11,6 +11,7 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	z-index: 1;
 }
 
 a {
@@ -30,6 +31,8 @@ a {
 	justify-content: start;
 	height: 100%;
 	overflow: hidden;
+	z-index: 2;
+	overscroll-behavior: contain;
 }
 
 .NavBar {

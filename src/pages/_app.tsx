@@ -1,3 +1,4 @@
+import '../styles/createPost.css';
 import '../styles/globals.css';
 import '../styles/postCard.css';
 

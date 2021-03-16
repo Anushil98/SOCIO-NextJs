@@ -13,9 +13,6 @@ body {
 	background-size: cover;
 	z-index: 1;
 }
-body {
-	/* overscroll-behavior-y: contain; */
-}
 
 a {
 	color: inherit;
@@ -35,6 +32,7 @@ a {
 	height: 100%;
 	overflow: hidden;
 	z-index: 2;
+	position: relative;
 	overscroll-behavior: contain;
 }
 
@@ -47,6 +45,7 @@ a {
 	justify-content: center;
 	height: 80px;
 	width: 100%;
+	z-index: 2;
 }
 .NavBar-left {
 	height: 100%;

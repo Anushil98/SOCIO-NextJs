@@ -1,0 +1,101 @@
+.createPost {
+	z-index: 9999;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin: auto;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+@keyframes createPost-Incoming {
+	0% {
+	}
+}
+.createPost > div {
+	/* border-style: dashed; */
+	width: 90%;
+	height: 100%;
+	/* display: flex;
+	flex-direction: column;
+	justify-content: center; */
+
+	background-color: none;
+	position: relative;
+}
+@media only screen and (min-width: 840px) {
+	.createPost > div {
+		/* border-style: dashed; */
+		width: 50%;
+	}
+}
+
+.createPost > div > div {
+	/* border-style: dotted; */
+	background-color: red;
+	position: absolute;
+	top: 25%;
+	left: 0%;
+	height: 50%;
+	width: 100%;
+	animation: createPost-Incoming 150ms cubic-bezier(0.59, 0.59, 0.21, 1.08);
+}
+
+@keyframes createPost-Incoming {
+	0% {
+		top: 110%;
+	}
+	20% {
+		top: 93%;
+	}
+	40% {
+		top: 76%;
+	}
+	60% {
+		top: 59%;
+	}
+	80% {
+		top: 42%;
+	}
+	100% {
+		top: 25%;
+	}
+}
+#createPost-Button {
+	position: fixed;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	/* flex-direction: row; */
+	justify-content: center;
+	align-items: center;
+	/* top: 50%; */
+	background-color: rgba(140, 140, 140);
+	border-radius: 50%;
+	bottom: 20px;
+	right: 20px;
+	z-index: 9999;
+}
+
+#createPost-Button:hover {
+	animation: button-zoom 100ms;
+	animation-iteration-count: 1;
+	height: 55px;
+	width: 55px;
+}
+
+@keyframes button-zoom {
+	0% {
+		height: 50px;
+		width: 50px;
+	}
+	50% {
+		height: 52px;
+		width: 52px;
+	}
+	100% {
+		height: 55px;
+		width: 55px;
+	}
+}

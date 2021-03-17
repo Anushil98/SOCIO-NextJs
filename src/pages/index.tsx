@@ -82,6 +82,7 @@ export default function Home() {
 					</SideCard>
 					<SideCard>
 						<PostCard
+							showCanvasHandler={showCanvasHandler}
 							post={{
 								user: { FirstName: 'Anushil', LastName: 'Ghosh Dastidar' },
 								postDetails: {

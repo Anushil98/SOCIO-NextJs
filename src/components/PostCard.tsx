@@ -1,16 +1,16 @@
-import { CancelOutlined, CommentOutlined, Gesture, ThumbDownAlt, ThumbDownAltOutlined } from '@material-ui/icons';
+import { CommentOutlined, Gesture, ThumbDownAlt, ThumbDownAltOutlined } from '@material-ui/icons';
 import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import useOutsideAlerter from '../helpers/outsideClick';
 
 export default function PostCard(props) {
 	const [ optionsShow, setoptionsShow ] = useState(0);
-	const [ Canvas, setCanvas ] = useState(0);
+
 	const wrapper = useRef(null);
-	let startDraw = 0;
+
 	useOutsideAlerter(wrapper, setoptionsShow);
 	const MenuOpenHandler = () => {
 		console.log('menu event listener e', optionsShow);
@@ -21,105 +21,13 @@ export default function PostCard(props) {
 		}
 		// console.log('menu event listener ex', optionsShow);
 	};
-	const draw = (X, Y) => {
-		const can = document.getElementById('canvas') as HTMLCanvasElement;
-		const ctx = can.getContext('2d');
-		console.log(X, Y);
-		ctx.beginPath();
-		ctx.arc(X + 0.5, Y, 10.5, 0, 2 * Math.PI);
-		ctx.stroke();
-	};
-	const changeState = () => {
-		startDraw = startDraw === 0 ? 1 : 0;
-	};
-	useEffect(
-		() => {
-			console.log(Canvas);
-			if (Canvas === 1) {
-				document.getElementsByTagName('body').item(0).style.overscrollBehaviorY = 'contain';
-				document.getElementById('canvas').addEventListener('mousedown', (e) => {
-					console.log('mousedown', startDraw);
-					changeState();
-				});
-				document.getElementById('canvas').addEventListener('mouseup', (e) => {
-					console.log(startDraw, 'mouseup');
-					changeState();
-				});
-				document.getElementById('canvas').addEventListener('mousemove', (e) => {
-					// console.log(e);
-					if (startDraw === 1) {
-						console.log('drawing');
-						var rect = (e.target as HTMLElement).getBoundingClientRect();
-						const can = document.getElementById('canvas') as HTMLCanvasElement;
-						const scaleX = can.width / rect.width; // relationship bitmap vs. element for X
-						const scaleY = can.height / rect.height; // relationship bitmap vs. element for Y
-						let x = (e.clientX - rect.left) * scaleX;
-						let y = (e.clientY - rect.top) * scaleY;
-						draw(x, y);
-					}
-				});
-				document.getElementById('canvas').addEventListener('touchstart', (e) => {
-					console.log('mousedown', startDraw);
-					changeState();
-				});
-				document.getElementById('canvas').addEventListener('touchend', (e) => {
-					console.log(startDraw, 'mouseup');
-					changeState();
-				});
-				document.getElementById('canvas').addEventListener('touchmove', (e) => {
-					console.log(e);
-					if (startDraw === 1) {
-						console.log('drawing');
-						var rect = (e.target as HTMLElement).getBoundingClientRect();
-						const can = document.getElementById('canvas') as HTMLCanvasElement;
-						const scaleX = can.width / rect.width; // relationship bitmap vs. element for X
-						const scaleY = can.height / rect.height; // relationship bitmap vs. element for Y
-						let x = (e.touches[0].clientX - rect.left) * scaleX;
-						let y = (e.touches[0].clientY - rect.top) * scaleY;
-						draw(x, y);
-					}
-				});
-			}
-			if (Canvas === 0) {
-				document.getElementsByTagName('body').item(0).style.overscrollBehaviorY = 'auto';
-				document.getElementById('canvas').removeEventListener('mouseup', () => {
-					console.log('Event Over');
-				});
-				document.getElementById('canvas').removeEventListener('mousedown', () => {
-					console.log('Event Over');
-				});
-				document.getElementById('canvas').removeEventListener('mousemove', () => {
-					console.log('Event Over');
-				});
-				document.getElementById('canvas').removeEventListener('touchstart', () => {
-					console.log('Event Over');
-				});
-				document.getElementById('canvas').removeEventListener('touchmove', () => {
-					console.log('Event Over');
-				});
-				document.getElementById('canvas').removeEventListener('touchend', () => {
-					console.log('Event Over');
-				});
-				const can = document.getElementById('canvas') as HTMLCanvasElement;
-				const ctx = can.getContext('2d');
-				ctx.clearRect(0, 0, can.width, can.height);
-			}
-		},
-		[ Canvas ]
-	);
-	const showCanvas = () => {
-		setCanvas(Canvas === 0 ? 1 : 0);
+	const [ showCanvas, setshowCanvas ] = useState(0);
+	const showCanvasHandler = () => {
+		props.showCanvasHandler();
 	};
 
 	return (
 		<div className="postCard">
-			<canvas id="canvas" style={{ display: Canvas ? 'block' : 'none' }} />
-			<div id="canvas-cancel">
-				<CancelOutlined
-					onClick={() => showCanvas()}
-					style={{ display: Canvas ? 'block' : 'none', height: '50px', width: '50px' }}
-				/>
-			</div>
 			<div className="postCardtop">
 				<div className="UserCard ">
 					<div>
@@ -238,7 +146,7 @@ export default function PostCard(props) {
 					<div>{props.post.postDetails.isUpvoted ? <ThumbUpAltIcon /> : <ThumbUpAltOutlinedIcon />}</div>
 					<div>{props.post.postDetails.isUpvoted ? <ThumbDownAlt /> : <ThumbDownAltOutlined />}</div>
 					<div>
-						<Gesture onClick={() => showCanvas()} />
+						<Gesture onClick={() => showCanvasHandler()} />
 					</div>
 				</div>
 				<div className="CommentArea">

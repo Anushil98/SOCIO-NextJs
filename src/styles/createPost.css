@@ -1,6 +1,7 @@
 .createPost {
-	z-index: 9999;
-	position: absolute;
+	position: fixed;
+	top: 0%;
+	left: 0%;
 	height: 100%;
 	width: 100%;
 	display: flex;
@@ -8,10 +9,8 @@
 	justify-content: center;
 	margin: auto;
 	background-color: rgba(255, 255, 255, 0.8);
-}
-@keyframes createPost-Incoming {
-	0% {
-	}
+	overscroll-behavior: contain;
+	z-index: 9999;
 }
 .createPost > div {
 	/* border-style: dashed; */
@@ -32,8 +31,8 @@
 }
 
 .createPost > div > div {
-	/* border-style: dotted; */
-	background-color: red;
+	border-style: dotted;
+	background-color: none;
 	position: absolute;
 	top: 25%;
 	left: 0%;

@@ -10,6 +10,7 @@ export const MainLayout = (props) => {
 	};
 	return (
 		<div className="MainLayout">
+			{props.children}
 			<CreatePost show={showCreatePost} />
 			<div id="createPost-Button" onClick={() => showCreatePostModal()}>
 				<AddIcon fontSize="large" />

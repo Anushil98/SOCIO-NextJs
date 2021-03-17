@@ -1,5 +1,7 @@
+import { CancelOutlined } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import AuthLayout from '../components/AuthLayout';
+import { Canvas } from '../components/Canvas';
 import { Login } from '../components/login';
 import { MainLayout } from '../components/MainLayout';
 import Panel from '../components/panelDiv';
@@ -9,6 +11,11 @@ import checkAuth from '../helpers/checkAuth';
 
 export default function Home() {
 	const [ Layout, setLayout ] = useState(0);
+	const [ showCanvas, setshowCanvas ] = useState(0);
+	const showCanvasHandler = () => {
+		console.log('yo');
+		setshowCanvas(showCanvas === 0 ? 1 : 0);
+	};
 	// const wrapper = useRef(null);
 	// useOutsideAlerter(wrapper);
 	useEffect(() => {
@@ -35,7 +42,9 @@ export default function Home() {
 				<Panel>
 					<SideCard>
 						<PostCard
+							showCanvasHandler={showCanvasHandler}
 							post={{
+								postId: 'kajhkjh',
 								user: {
 									FirstName: 'Anushil',
 									LastName: 'Ghosh Dastidar',
@@ -114,6 +123,14 @@ export default function Home() {
 					<SideCard>hi</SideCard>
 				</Panel>
 			}
-		/>
+		>
+			<Canvas show={showCanvas} />
+			<div id="canvas-cancel">
+				<CancelOutlined
+					onClick={() => showCanvasHandler()}
+					style={{ display: showCanvas ? 'block' : 'none', height: '50px', width: '50px' }}
+				/>
+			</div>
+		</MainLayout>
 	);
 }

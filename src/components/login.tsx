@@ -51,6 +51,7 @@ export const Login = () => {
 	};
 	return (
 		<div id="Login">
+			<div id="LogoMainPage">SOCIO</div>
 			<form>
 				<label>Username:</label>
 

@@ -1,0 +1,61 @@
+#Login {
+	/* border-style: dashed; */
+	background-color: rgba(121, 118, 106, 0.774);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: fixed;
+	height: 50%;
+	width: 100%;
+	top: 25%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+#Login > form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-top: 0%;
+}
+#Login > form > label {
+	/* border-style: dashed; */
+	text-align: left;
+	padding-top: 6%;
+	height: min-content;
+	padding-bottom: 3%;
+	font-family: sans-serif;
+	font-size: 19px;
+}
+#Login > form > input[type=password],
+input[type=text] {
+	color: rgb(22 23 22 / 86%);
+	padding: 2px;
+	padding-left: 4px;
+	border: none;
+	margin-bottom: 10px;
+}
+#Login > form > input[type=password] {
+	font-size: x-large;
+}
+#Login > form > input[type=password]:focus,
+input[type=text]:focus {
+	border-style: outset;
+	border-color: rgb(170, 167, 167);
+	border-width: 1px;
+}
+#Login > form > input[type=button] {
+	width: 46%;
+	margin-left: 25%;
+	margin-bottom: 2%;
+	font: caption;
+	box-shadow: 3px 2px 4px 1px grey;
+}
+
+@media only screen and (min-width: 640px) {
+	#Login {
+		left: 50%;
+		width: 50%;
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+}

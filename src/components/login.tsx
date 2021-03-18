@@ -50,16 +50,21 @@ export const Login = () => {
 		}
 	};
 	return (
-		<div>
+		<div id="Login">
 			<form>
-				<label>Enter Username:</label>
-				<br />
-				<input name="username" onChange={(e) => setUsername(e.target.value)} />
-				<br />
-				<label>Enter Password</label>
-				<br />
+				<label>Username:</label>
+
+				<input
+					type="text"
+					name="username"
+					onChange={(e) => setUsername(e.target.value)}
+					placeholder="eg. Agashi"
+				/>
+
+				<label>Password</label>
+
 				<input type="password" name="password" onChange={(e) => setPassword(e.target.value)} />
-				<br />
+
 				<input type="button" onClick={() => login()} value="Login" />
 			</form>
 		</div>

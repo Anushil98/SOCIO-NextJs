@@ -13,7 +13,7 @@ export default function Home() {
 	const [ Layout, setLayout ] = useState(0);
 	const [ showCanvas, setshowCanvas ] = useState(0);
 	const showCanvasHandler = () => {
-		console.log('yo');
+		// console.log('yo');
 		setshowCanvas(showCanvas === 0 ? 1 : 0);
 	};
 	// const wrapper = useRef(null);

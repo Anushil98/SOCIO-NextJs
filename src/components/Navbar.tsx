@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import logout from '../helpers/logout';
 
 export default function Navbar() {
 	return (
@@ -41,6 +42,29 @@ export default function Navbar() {
 							<Link href="/error">
 								<a className="NavBarButton Mobile">S</a>
 							</Link>
+						</div>
+					</div>
+					<div className="NavBar-Buttons-Sub">
+						<div>
+							<div>
+								<button
+									className="NavBarButton"
+									onClick={() => {
+										logout();
+									}}
+								>
+									Logout
+								</button>
+
+								<button
+									className="NavBarButton Mobile"
+									onClick={() => {
+										logout();
+									}}
+								>
+									L
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>

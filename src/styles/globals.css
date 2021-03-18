@@ -68,7 +68,7 @@ a {
 	flex-direction: row;
 	justify-content: flex-end;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: 20px;
 }
 .NavBar-Buttons {
 	display: flex;

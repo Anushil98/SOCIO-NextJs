@@ -1,6 +1,7 @@
 import '../styles/createPost.css';
 import '../styles/globals.css';
 import '../styles/Login.css';
+import '../styles/NavBar.css';
 import '../styles/postCard.css';
 
 function MyApp({ Component, pageProps }) {

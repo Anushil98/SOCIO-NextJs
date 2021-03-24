@@ -62,9 +62,8 @@
 	}
 }
 #createPost-Button {
-	position: fixed;
-	height: 50px;
-	width: 50px;
+	height: 45px;
+	width: 45px;
 	display: flex;
 	/* flex-direction: row; */
 	justify-content: center;
@@ -72,9 +71,19 @@
 	/* top: 50%; */
 	background-color: rgba(140, 140, 140);
 	border-radius: 50%;
-	bottom: 20px;
-	right: 20px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0px 8px 14px 2px #000000ba;
+	color: black;
+	margin-top: 5px;
 	z-index: 9999;
+}
+@media only screen and (min-width: 640px) {
+	#createPost-Button {
+		position: fixed;
+		bottom: 24px;
+		right: 34px;
+	}
 }
 
 #createPost-Button:hover {

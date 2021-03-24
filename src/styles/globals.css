@@ -36,103 +36,6 @@ a {
 	overscroll-behavior: contain;
 }
 
-.NavBar {
-	background-color: rgba(163, 159, 159);
-	color: white;
-	position: fixed;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	height: 80px;
-	width: 100%;
-	z-index: 2;
-}
-.NavBar-left {
-	height: 100%;
-	width: 100%;
-	flex: 25%;
-	display: flex;
-	flex-direction: row;
-	justify-content: start;
-}
-.NavBar-left div {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin-left: 10%;
-}
-.NavBar-Right {
-	height: 100%;
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	margin-left: auto;
-	margin-right: 20px;
-}
-.NavBar-Buttons {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	margin-left: auto;
-	margin-right: 40px;
-	transition-delay: 0.1s;
-}
-
-.NavBar-Buttons-Sub {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin-left: 10%;
-}
-.NavBar-Buttons-Sub * {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
-
-.NavBarButton {
-	display: none;
-}
-.NavBarButton.Mobile {
-	display: inherit;
-	border-radius: 50%;
-	padding: 10%;
-	height: 50px;
-	width: 50px;
-	color: black;
-	text-align: center;
-	border-width: 1px;
-	border-style: solid;
-}
-.NavBarButton.Mobile:hover {
-	background-color: white;
-}
-
-@media only screen and (min-width: 640px) {
-	.NavBarButton.Mobile {
-		display: none;
-	}
-	.NavBarButton:hover {
-		background-color: white;
-		box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-		zoom: 110%;
-		margin: auto;
-	}
-	.NavBarButton {
-		display: inherit;
-		/* border-radius: 10%; */
-		padding: 10%;
-		margin-right: 10px;
-		height: 30px;
-		width: 70px;
-		color: black;
-		background-color: rgba(140, 140, 140);
-		text-align: center;
-		border-style: solid;
-		border-width: 1px;
-	}
-}
 .ContentArea {
 	margin-top: 80px;
 	height: 100%;
@@ -200,6 +103,7 @@ a {
 }
 #MidArea {
 	margin: -4% -2% 0 -2%;
+	z-index: 1;
 }
 
 .Panel:hover {
@@ -215,6 +119,7 @@ a {
 	margin-bottom: 10%;
 	padding: 2%;
 	width: 200px;
+
 	/* border-radius: 5%; */
 	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
 }

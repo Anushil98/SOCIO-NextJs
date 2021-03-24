@@ -1,4 +1,3 @@
-import AddIcon from '@material-ui/icons/Add';
 import React, { useState } from 'react';
 import { CreatePost } from './createPost';
 import Navbar from './Navbar';
@@ -12,10 +11,8 @@ export const MainLayout = (props) => {
 		<div className="MainLayout">
 			{props.children}
 			<CreatePost show={showCreatePost} />
-			<div id="createPost-Button" onClick={() => showCreatePostModal()}>
-				<AddIcon fontSize="large" />
-			</div>
-			<Navbar />
+
+			<Navbar showCreatePostModal={showCreatePostModal} />
 			<div className="ContentArea">
 				<div className="leftSideBar">{props.leftSideBar}</div>
 				<div className="Middle" id="MidArea">

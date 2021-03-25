@@ -38,12 +38,18 @@ a {
 
 .ContentArea {
 	margin-top: 80px;
-	height: 100%;
+	height: 78%;
+	/* border-style: dashed; */
 	display: flex;
 	flex-direction: row;
 	background-color: none;
 	justify-content: space-between;
 	flex-shrink: 0;
+}
+@media only screen and (min-width: 640px) {
+	.ContentArea {
+		height: 100%;
+	}
 }
 
 .leftSideBar {

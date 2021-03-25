@@ -1,7 +1,9 @@
 import AddIcon from '@material-ui/icons/Add';
-import Link from 'next/link';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import PersonIcon from '@material-ui/icons/Person';
+import SearchIcon from '@material-ui/icons/Search';
 import React from 'react';
-import logout from '../helpers/logout';
 
 export default function Navbar(props) {
 	return (
@@ -13,23 +15,27 @@ export default function Navbar(props) {
 				<div className="NavBar-Buttons-Sub">
 					<div>
 						<div>
-							<Link href="/error">
-								<a className="NavBarButton">College</a>
-							</Link>
-							<Link href="/error">
-								<a className="NavBarButton Mobile">C</a>
-							</Link>
+							<div className="NavBarButton">
+								<PeopleAltIcon fontSize="large" />
+								<span>Groups</span>
+							</div>
+
+							<div className="NavBarButton Mobile">
+								<PeopleAltIcon fontSize="large" />
+							</div>
 						</div>
 					</div>
 				</div>
 				<div className="NavBar-Buttons-Sub">
 					<div>
-						<Link href="/error">
-							<a className="NavBarButton">Profile</a>
-						</Link>
-						<Link href="/error">
-							<a className="NavBarButton Mobile">P</a>
-						</Link>
+						<div className="NavBarButton">
+							<SearchIcon fontSize="large" />
+							<span>Search</span>
+						</div>
+
+						<div className="NavBarButton Mobile">
+							<SearchIcon fontSize="large" />
+						</div>
 					</div>
 				</div>
 				<div id="createPost-Button" onClick={() => props.showCreatePostModal()}>
@@ -37,34 +43,25 @@ export default function Navbar(props) {
 				</div>
 				<div className="NavBar-Buttons-Sub">
 					<div>
-						<Link href="/error">
-							<a className="NavBarButton">Settings</a>
-						</Link>
-						<Link href="/error">
-							<a className="NavBarButton Mobile">S</a>
-						</Link>
+						<div className="NavBarButton">
+							<NotificationsIcon fontSize="large" />
+							<span>Notifications</span>
+						</div>
+
+						<div className="NavBarButton Mobile">
+							<NotificationsIcon fontSize="large" />
+						</div>
 					</div>
 				</div>
 				<div className="NavBar-Buttons-Sub">
 					<div>
-						<div>
-							<button
-								className="NavBarButton"
-								onClick={() => {
-									logout();
-								}}
-							>
-								Logout
-							</button>
+						<div className="NavBarButton">
+							<PersonIcon fontSize="large" />
+							<span>Profile</span>
+						</div>
 
-							<button
-								className="NavBarButton Mobile"
-								onClick={() => {
-									logout();
-								}}
-							>
-								L
-							</button>
+						<div className="NavBarButton Mobile">
+							<PersonIcon fontSize="large" />
 						</div>
 					</div>
 				</div>

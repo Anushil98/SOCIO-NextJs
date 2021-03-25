@@ -27,13 +27,12 @@
 }
 
 .NavBar-Right {
-	height: 100%;
 	width: 100%;
 	/* border-style: dashed; */
-	border-color: black;
+	/* border-color: black; */
 	position: fixed;
 	width: 100%;
-	height: 60px;
+	height: 70px;
 	bottom: 0%;
 	z-index: 9999999;
 	background-color: rgb(189, 184, 184);
@@ -47,40 +46,13 @@
 	top: 0px; */
 	height: 60px;
 	/* border-style: dashed; */
-	padding-top: 5px;
+	padding-top: 9px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	width: 60px;
 	flex: 20%;
 }
-/* .NavBar-Right > :nth-child(1) {
-	left: 3%;
-}
-.NavBar-Right > :nth-child(2) {
-	left: 23%;
-}
-.NavBar-Right > :nth-child(3) {
-	right: 3%;
-}
-.NavBar-Right > :nth-child(4) {
-	right: 23%;
-}
-
-@media only screen and (min-width: 430px) {
-	.NavBar-Right > :nth-child(1) {
-		left: 8%;
-	}
-	.NavBar-Right > :nth-child(2) {
-		left: 28%;
-	}
-	.NavBar-Right > :nth-child(3) {
-		right: 8%;
-	}
-	.NavBar-Right > :nth-child(4) {
-		right: 28%;
-	}
-} */
 .NavBarButton {
 	display: none;
 }
@@ -100,26 +72,64 @@
 }
 
 @media only screen and (min-width: 640px) {
+	.NavBar-left {
+		top: 0%;
+		width: 50%;
+		/* border-style: dashed; */
+		position: fixed;
+		left: 0%;
+		padding-top: 1%;
+		display: flex;
+		/* padding-left: 1%; */
+		flex-direction: row;
+		justify-content: flex-start;
+		padding-left: 1%;
+	}
+	.NavBar-Right {
+		position: fixed;
+		top: 0%;
+		width: 50%;
+		right: 0%;
+		height: inherit;
+		padding-top: 6px;
+		background-color: #a39f9f;
+	}
 	.NavBarButton.Mobile {
 		display: none;
 	}
 	.NavBarButton:hover {
-		background-color: white;
+		/* background-color: white; */
 		box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
-		zoom: 110%;
-		margin: auto;
+		border-radius: 2%;
+		padding: 2px;
 	}
 	.NavBarButton {
-		display: inherit;
-		/* border-radius: 10%; */
-		padding: 10%;
-		margin-right: 10px;
-		height: 30px;
-		width: 70px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
 		color: black;
-		background-color: rgba(140, 140, 140);
-		text-align: center;
-		border-style: solid;
-		border-width: 1px;
+		/* border-style: dashed; */
+		height: 52px;
+	}
+	.NavBar-Buttons-Sub:nth-child(4) span {
+		margin-top: 11%;
+	}
+	.NavBarButton > svg {
+		/* border-style: dashed; */
+		margin-top: 4%;
+		height: fit-content;
+	}
+	.NavBarButton > span {
+		/* border-style: dashed; */
+		display: none;
+		margin-top: 16%;
+		margin-left: 6px;
+		height: 50px;
+		font-family: sans-serif;
+	}
+}
+@media only screen and (min-width: 870px) {
+	.NavBarButton > span {
+		display: block;
 	}
 }

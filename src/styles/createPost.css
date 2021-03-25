@@ -13,19 +13,13 @@
 	z-index: 9999;
 }
 .createPost > div {
-	/* border-style: dashed; */
 	width: 90%;
 	height: 100%;
-	/* display: flex;
-	flex-direction: column;
-	justify-content: center; */
-
 	background-color: none;
 	position: relative;
 }
 @media only screen and (min-width: 840px) {
 	.createPost > div {
-		/* border-style: dashed; */
 		width: 50%;
 	}
 }
@@ -73,9 +67,9 @@
 	border-radius: 50%;
 	border-style: solid;
 	border-width: 1px;
-	box-shadow: 0px 8px 14px 2px #000000ba;
+	box-shadow: -1px 3px 20px 0px #0000008f;
 	color: black;
-	margin-top: 5px;
+	margin-top: 10px;
 	z-index: 9999;
 }
 @media only screen and (min-width: 640px) {
@@ -87,10 +81,9 @@
 }
 
 #createPost-Button:hover {
-	animation: button-zoom 100ms;
-	animation-iteration-count: 1;
-	height: 55px;
-	width: 55px;
+	border-style: ridge;
+	border-color: black;
+	background-color: rgb(191 187 187 / 90%);
 }
 
 @keyframes button-zoom {

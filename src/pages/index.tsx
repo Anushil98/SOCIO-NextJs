@@ -10,7 +10,7 @@ import SideCard from '../components/SideCards';
 import checkAuth from '../helpers/checkAuth';
 
 export default function Home() {
-	const [ Layout, setLayout ] = useState(0);
+	const [ Layout, setLayout ] = useState(-1);
 	const [ showCanvas, setshowCanvas ] = useState(0);
 	const showCanvasHandler = () => {
 		// console.log('yo');
@@ -22,12 +22,15 @@ export default function Home() {
 		if (checkAuth() === true) {
 			setLayout(1);
 		}
+		if (!checkAuth()) {
+			setLayout(0);
+		}
 	});
 	return Layout === 0 ? (
 		<AuthLayout>
 			<Login />
 		</AuthLayout>
-	) : (
+	) : Layout === 1 ? (
 		<MainLayout
 			leftSideBar={
 				<Panel>
@@ -133,5 +136,5 @@ export default function Home() {
 				/>
 			</div>
 		</MainLayout>
-	);
+	) : null;
 }

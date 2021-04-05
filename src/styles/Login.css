@@ -4,6 +4,8 @@
 	background-position-y: bottom;
 	background-repeat: no-repeat;
 	background-position-x: center;
+	animation: backgroundFadeUp 500ms ease-in-out forwards;
+	min-height: 100%;
 }
 
 #LogoMainPage {
@@ -26,6 +28,8 @@
 	justify-content: center;
 	height: fit-content;
 	width: 100%;
+	opacity: 0;
+	animation: width-expand 1000ms ease-out forwards 300ms;
 }
 
 #Login > form > div:nth-child(1) > input {
@@ -39,6 +43,7 @@
 	margin-right: 4%;
 	color: var(--text-color);
 	padding-left: 10px;
+	font-family: shanti;
 }
 #Login > form > div:nth-child(1) > input::placeholder {
 	color: var(--text-color);
@@ -57,6 +62,8 @@
 	padding-top: 3px;
 	padding-bottom: 3px;
 	color: var(--text-color);
+	opacity: 0.0;
+	animation: fadeUp 500ms ease-out 600ms forwards;
 }
 @media only screen and (min-width: 640px) {
 	#Login {

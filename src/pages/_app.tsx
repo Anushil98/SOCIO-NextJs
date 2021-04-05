@@ -1,3 +1,4 @@
+import '../styles/animation.css';
 import '../styles/createPost.css';
 import '../styles/globals.css';
 import '../styles/Login.css';

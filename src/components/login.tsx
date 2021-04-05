@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import Router from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Login = () => {
 	const [ username, setUsername ] = useState('');
@@ -53,20 +53,23 @@ export const Login = () => {
 		<div id="Login">
 			<div id="LogoMainPage">SOCIO</div>
 			<form>
-				<label>Username:</label>
-
-				<input
-					type="text"
-					name="username"
-					onChange={(e) => setUsername(e.target.value)}
-					placeholder="eg. Agashi"
-				/>
-
-				<label>Password</label>
-
-				<input type="password" name="password" onChange={(e) => setPassword(e.target.value)} />
-
-				<input type="button" onClick={() => login()} value="Login" />
+				<div>
+					<input
+						type="text"
+						name="username"
+						onChange={(e) => setUsername(e.target.value)}
+						placeholder="Email / Username"
+					/>
+					<input
+						type="password"
+						name="password"
+						onChange={(e) => setPassword(e.target.value)}
+						placeholder="Password"
+					/>
+				</div>
+				<div>
+					<input type="button" onClick={() => login()} value="Login" />
+				</div>
 			</form>
 		</div>
 	);

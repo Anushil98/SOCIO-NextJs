@@ -12,6 +12,28 @@ body {
 	background-repeat: no-repeat;
 	background-size: cover;
 	z-index: 1;
+
+	/* color palette */
+	--color1: #942727;
+	--color2: #5f1717;
+	--color3: #773333;
+	--color4: #8c3737;
+	--text-color: #bd3232;
+}
+
+@font-face {
+	font-family: skranji-regular;
+	src: url("/fonts/Skranji/Skranji-Regular.ttf");
+}
+
+@font-face {
+	font-family: skranji-bold;
+	src: url("/fonts/Skranji/Skranji-Bold.ttf");
+}
+
+@font-face {
+	font-family: shanti;
+	src: url("/fonts/Shanti/Shanti-Regular.ttf");
 }
 
 a {

@@ -1,6 +1,9 @@
 #Login {
 	background-image: url("../../public/MobileLoginBackground.svg");
 	position: relative;
+	background-position-y: bottom;
+	background-repeat: no-repeat;
+	background-position-x: center;
 }
 
 #LogoMainPage {

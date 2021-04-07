@@ -59,7 +59,6 @@ a {
 }
 
 .ContentArea {
-	margin-top: 80px;
 	height: 78%;
 	/* border-style: dashed; */
 	display: flex;
@@ -127,7 +126,15 @@ a {
 }
 .Middle .Panel {
 	margin: auto;
-	margin-top: 10%;
+	padding-top: 50px;
+}
+.Middle .Panel::before {
+	content: '';
+	display: inline-block;
+	background-color: #ffffff;
+	height: 42px;
+	width: 100%;
+	position: relative;
 }
 #MidArea {
 	margin: -4% -2% 0 -2%;
@@ -141,10 +148,10 @@ a {
 }
 
 .SideCard {
-	background-color: rgba(235, 235, 235, 0.8);
+	background-color: #fff6f6;
 	height: fit-content;
 	max-height: fit-content;
-	margin-bottom: 10%;
+	margin-bottom: 100px;
 	padding: 2%;
 	width: 200px;
 

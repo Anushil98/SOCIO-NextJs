@@ -1,7 +1,5 @@
-import { CancelOutlined } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import AuthLayout from '../components/AuthLayout';
-import { Canvas } from '../components/Canvas';
 import { Login } from '../components/login';
 import { MainLayout } from '../components/MainLayout';
 import Panel from '../components/panelDiv';
@@ -128,13 +126,13 @@ export default function Home() {
 				</Panel>
 			}
 		>
-			<Canvas show={showCanvas} />
+			{/* <Canvas show={showCanvas} />
 			<div id="canvas-cancel">
 				<CancelOutlined
 					onClick={() => showCanvasHandler()}
 					style={{ display: showCanvas ? 'block' : 'none', height: '50px', width: '50px' }}
 				/>
-			</div>
+			</div> */}
 		</MainLayout>
 	) : null;
 }

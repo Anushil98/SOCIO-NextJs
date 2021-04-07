@@ -14,7 +14,9 @@ export const Login = () => {
 		[ username, success ]
 	);
 	const login = async () => {
-		// console.log('Yohhoo');
+		Router.push('/HomePage');
+		localStorage.setItem('Authentication', 'testVlue');
+
 		const data = JSON.stringify({
 			query: `mutation{
             login(
@@ -39,7 +41,6 @@ export const Login = () => {
 		};
 		try {
 			const response = await axios(config);
-			// console.log(JSON.stringify(response.data));
 			setSuccessState(response.data.data.login !== null ? true : false);
 			if (response.data.data && response.data.data.login) {
 				localStorage.setItem('Authentication', response.data.data.login.accessToken);

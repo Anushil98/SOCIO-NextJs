@@ -20,19 +20,6 @@
 .postCard * {
 	z-index: 1;
 }
-.postCard::before {
-	content: '';
-	position: absolute;
-	border-color: #fff6f6;
-	border-style: solid;
-	border-width: 0 139px 0 0px;
-	height: 5em;
-	top: -3.7em;
-	left: -1.4em;
-	width: 0.5em;
-	border-radius: 0 59% 0 0;
-	z-index: 0;
-}
 
 .postCard .UserInfo {
 	display: flex;
@@ -79,6 +66,7 @@
 }
 .postCard .UserInfo .UserDetails .UserName {
 	color: #772d2d;
+	font-size: medium;
 }
 
 .postCard .UserInfo .UserDetails .PostTime {
@@ -90,6 +78,7 @@
 .postCard .UserInfo .UserDetails .PostTime .Time {
 	margin: 3px 0 auto 4px;
 	color: #b24545;
+	font-size: small;
 }
 
 .postCard .UserInfo .UserDetails .PostTime > img {

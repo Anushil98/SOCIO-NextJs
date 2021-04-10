@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import useOutsideAlerter from '../helpers/outsideClick';
+import { timeAgo } from '../helpers/TimeAgoUtil';
+import { Post } from '../types/post.type';
 
-export default function PostCard(props) {
+export default function PostCard(props: { post: Post }) {
 	const [ optionsShow, setoptionsShow ] = useState(0);
 
 	const wrapper = useRef(null);
@@ -16,28 +18,26 @@ export default function PostCard(props) {
 		}
 		// console.log('menu event listener ex', optionsShow);
 	};
-	const [ showCanvas, setshowCanvas ] = useState(0);
-	const showCanvasHandler = () => {
-		props.showCanvasHandler();
-	};
+	// const [ showCanvas, setshowCanvas ] = useState(0);
+	// const showCanvasHandler = () => {
+	// 	props.showCanvasHandler();
+	// };
+	const { post } = props;
 
 	return (
 		<div className="postCard">
 			<div className="UserInfo">
 				<div className="UserAvatar">
 					<div className="avatar">
-						<img
-							src="https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg"
-							alt=""
-						/>
+						<img src={post.User.avatar} alt="" />
 					</div>
 				</div>
 				<div className="UserDetails">
-					<div className="FullName">Andrea JohnSon</div>
-					<div className="UserName">@andrea</div>
+					<div className="FullName">{post.User.firstname + ' ' + post.User.lastname}</div>
+					<div className="UserName">{'@' + post.User.username}</div>
 					<div className="PostTime">
 						<img src="/TimeIcon.svg" alt="" />
-						<div className="Time">2 weeks ago</div>
+						<div className="Time">{timeAgo.format(new Date(post.createdDate), 'round')}</div>
 					</div>
 				</div>
 			</div>

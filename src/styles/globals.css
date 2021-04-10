@@ -59,7 +59,7 @@ a {
 }
 
 .ContentArea {
-	height: 78%;
+	height: 100%;
 	/* border-style: dashed; */
 	display: flex;
 	flex-direction: row;
@@ -75,7 +75,6 @@ a {
 
 .leftSideBar {
 	height: 100%;
-
 	background-color: none;
 	width: 0;
 }
@@ -94,13 +93,13 @@ a {
 }
 @media only screen and (min-width: 840px) {
 	.rightSideBar {
-		width: 25%;
+		width: 1fr;
 	}
 	.leftSideBar {
-		width: 25%;
+		width: 1fr;
 	}
 	.Middle {
-		width: 60%;
+		width: 1fr;
 	}
 }
 .Middle .Panel::-webkit-scrollbar {
@@ -164,7 +163,7 @@ a {
 	display: inline-block;
 	position: absolute;
 	background-color: #fff6f6;
-	width: 150px;
+	width: 140px;
 	height: 100%;
 	border-radius: 0 50% 0 0;
 	z-index: -1;
@@ -172,18 +171,19 @@ a {
 	margin: 0;
 	top: -41px;
 	left: 0;
-	box-shadow: 7px -4px 11px 0px #fcefefc4, 3px -3px 11px 0px #0000007d;
+	box-shadow: -6px 0px 10px 4px #ffffff, 7px -4px 11px 0px #fcefefc4, 3px -3px 11px 0px #0000007d;
 }
 .SideCard::after {
 	content: '';
 	display: inline-block;
 	position: absolute;
-	width: 100%;
+	width: 98%;
 	height: 5px;
 	background-color: none;
 	z-index: -25;
 	top: 0;
-	box-shadow: 7px -4px 11px 0px #fcefefc4, 3px -3px 11px 0px #0000007d;
+	left: 0;
+	box-shadow: -3px 0px 10px 4px #ffffff, 7px -4px 11px 0px #fcefefc4, 3px -3px 11px 0px #0000007d;
 }
 .Middle .SideCard {
 	width: 100%;

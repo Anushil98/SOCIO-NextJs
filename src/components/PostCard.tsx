@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import useOutsideAlerter from '../helpers/outsideClick';
 import { timeAgo } from '../helpers/TimeAgoUtil';
 import { Post } from '../types/post.type';
@@ -7,6 +8,10 @@ export default function PostCard(props: { post: Post }) {
 	const [ optionsShow, setoptionsShow ] = useState(0);
 
 	const wrapper = useRef(null);
+
+	const [ mainImage, setmainImage ] = useState(0);
+	const [ moveLeft, setmoveLeft ] = useState(false);
+	const [ moveRight, setmoveRight ] = useState(false);
 
 	useOutsideAlerter(wrapper, setoptionsShow);
 	const MenuOpenHandler = () => {
@@ -22,6 +27,7 @@ export default function PostCard(props: { post: Post }) {
 	// const showCanvasHandler = () => {
 	// 	props.showCanvasHandler();
 	// };
+
 	const { post } = props;
 
 	return (
@@ -37,13 +43,55 @@ export default function PostCard(props: { post: Post }) {
 					<div className="UserName">{'@' + post.User.username}</div>
 					<div className="PostTime">
 						<img src="/TimeIcon.svg" alt="" />
-						<div className="Time">{timeAgo.format(new Date(post.createdDate), 'round')}</div>
+						<div className="Time">{timeAgo.format(new Date(post.createdDate))}</div>
 					</div>
 				</div>
 			</div>
 			<div className="PostDetails">
-				<div className="postText" />
-				<div className="ImageSlider" />
+				<div className="postText">
+					We are in this together. Lets us focus on this situation like an opportunuty and then we will all do
+					it once again. It is time for us to win against this virus
+				</div>
+				{post.Media.length > 0 ? (
+					<div className="ImageSlider">
+						<div
+							className="LeftImageSlide"
+							onClick={() =>
+								setmainImage((x) => {
+									if (x - 1 < 0) {
+										x = post.Media.length - 1;
+									} else x = x - 1;
+									return x;
+								})}
+						>
+							<img src="/left-arrow.svg" />
+						</div>
+						<SwitchTransition mode={'out-in'}>
+							<CSSTransition key={mainImage} classNames={`image`} timeout={500}>
+								<img src={post.Media[mainImage].filename} className={`image`} />
+							</CSSTransition>
+						</SwitchTransition>
+
+						<div
+							className="RightImageSlide"
+							onClick={() => {
+								setmainImage((x) => {
+									if (x + 1 >= post.Media.length) {
+										x = 0;
+									} else x = x + 1;
+									return x;
+								});
+							}}
+						>
+							<img src="/arrow-point-to-right.svg" />
+						</div>
+					</div>
+				) : null}
+				<div className="credSlider">
+					<div className="leftSlide" />
+					<div className="mainSlide">7.5</div>
+					<div className="rightSlide" />
+				</div>
 			</div>
 		</div>
 	);

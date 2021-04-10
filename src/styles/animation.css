@@ -95,3 +95,30 @@
 		background-position-y: bottom;
 	}
 }
+
+@keyframes slideRight {
+	0% {
+		left: 0%;
+		width: 100%;
+	}
+	20% {
+		left: 20%;
+		width: 80%;
+	}
+	40% {
+		left: 40%;
+		width: 60%;
+	}
+	60% {
+		left: 60%;
+		width: 40%;
+	}
+	80% {
+		left: 80%;
+		width: 20%;
+	}
+	100% {
+		left: 100%;
+		width: 0%;
+	}
+}

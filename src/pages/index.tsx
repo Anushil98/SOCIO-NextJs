@@ -59,7 +59,32 @@ export default function Home(props: { deviceInfo: any; posts: Post[] }) {
 
 export async function getServerSideProps({ req }) {
 	const getDeviceInformation = getDeviceInfo(req);
-	const posts = [
+	const posts: Post[] = [
+		{
+			userId: 'abcdwfgkjniuhs',
+			User: {
+				id: 'abcdwfgkjniuhs',
+				avatar:
+					'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+				username: 'andrea',
+				firstname: 'Andrea',
+				lastname: 'JohnSon'
+			},
+			Media: [
+				{ baseurl: '', filename: 'https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg' },
+				{
+					baseurl: '',
+					filename: 'https://i.pinimg.com/originals/d9/de/11/d9de112b2c4aedef6df31d05194adf21.jpg'
+				},
+				{
+					baseurl: '',
+					filename:
+						'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+				}
+			],
+			postId: 'kjjkojoljpoi',
+			createdDate: new Date().toString()
+		},
 		{
 			userId: 'abcdwfgkjniuhs',
 			User: {
@@ -71,6 +96,7 @@ export async function getServerSideProps({ req }) {
 				lastname: 'JohnSon'
 			},
 			postId: 'kjjkojoljpoi',
+			Media: [],
 			createdDate: new Date().toString()
 		}
 	];

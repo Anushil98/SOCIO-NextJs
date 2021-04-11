@@ -9,7 +9,7 @@ export default function PostCard(props: { post: Post }) {
 
 	const wrapper = useRef(null);
 
-	const [ mainImage, setmainImage ] = useState(0);
+	const [ mainImage, setmainImage ] = useState({ position: 0, prev: null, next: null });
 	const [ moveLeft, setmoveLeft ] = useState(false);
 	const [ moveRight, setmoveRight ] = useState(false);
 
@@ -58,17 +58,24 @@ export default function PostCard(props: { post: Post }) {
 							className="LeftImageSlide"
 							onClick={() =>
 								setmainImage((x) => {
-									if (x - 1 < 0) {
-										x = post.Media.length - 1;
-									} else x = x - 1;
-									return x;
+									if (x.position + 1 >= post.Media.length) {
+										x.position = 0;
+									} else x.position = x.position + 1;
+									if (x.next === 'left') {
+										x.prev = 'left';
+									}
+									x.next = 'right';
+									return { ...x };
 								})}
 						>
 							<img src="/left-arrow.svg" />
 						</div>
 						<SwitchTransition mode={'out-in'}>
-							<CSSTransition key={mainImage} classNames={`image`} timeout={500}>
-								<img src={post.Media[mainImage].filename} className={`image`} />
+							<CSSTransition key={mainImage.position} timeout={{ exit: 300, enter: 500 }}>
+								<img
+									src={post.Media[mainImage.position].filename}
+									className={`prev-${mainImage.prev} next-${mainImage.next}`}
+								/>
 							</CSSTransition>
 						</SwitchTransition>
 
@@ -76,10 +83,14 @@ export default function PostCard(props: { post: Post }) {
 							className="RightImageSlide"
 							onClick={() => {
 								setmainImage((x) => {
-									if (x + 1 >= post.Media.length) {
-										x = 0;
-									} else x = x + 1;
-									return x;
+									if (x.position - 1 < 0) {
+										x.position = post.Media.length - 1;
+									} else x.position = x.position - 1;
+									if (x.next === 'right') {
+										x.prev = 'right';
+									}
+									x.next = 'left';
+									return { ...x };
 								});
 							}}
 						>
@@ -89,7 +100,7 @@ export default function PostCard(props: { post: Post }) {
 				) : null}
 				<div className="credSlider">
 					<div className="leftSlide" />
-					<div className="mainSlide">7.5</div>
+					<div className="mainSlide">{7.5}</div>
 					<div className="rightSlide" />
 				</div>
 			</div>

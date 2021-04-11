@@ -104,6 +104,9 @@ export default function PostCard(props: { post: Post }) {
 					<div className="rightSlide" />
 				</div>
 			</div>
+			<div className="conversation">
+				<img src="/chat.svg" />
+			</div>
 		</div>
 	);
 }

@@ -98,6 +98,27 @@ export async function getServerSideProps({ req }) {
 			postId: 'kjjkojoljpoi',
 			Media: [],
 			createdDate: new Date().toString()
+		},
+		{
+			userId: 'abcdwfgkjniuhs',
+			User: {
+				id: 'abcdwfgkjniuhs',
+				avatar:
+					'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+				username: 'andrea',
+				firstname: 'Andrea',
+				lastname: 'JohnSon'
+			},
+			postId: 'kjjkojoljpoi',
+			Media: [
+				{
+					baseurl: '',
+					filename:
+						'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+				},
+				{ baseurl: '', filename: 'https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg' }
+			],
+			createdDate: new Date().toString()
 		}
 	];
 	return {

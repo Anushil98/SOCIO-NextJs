@@ -60,18 +60,13 @@ a {
 }
 
 .ContentArea {
-	height: 100%;
+	height: 95vh;
 	/* border-style: dashed; */
 	display: flex;
 	flex-direction: row;
 	background-color: none;
 	justify-content: space-between;
 	flex-shrink: 0;
-}
-@media only screen and (min-width: 640px) {
-	.ContentArea {
-		height: 100%;
-	}
 }
 
 .leftSideBar {
@@ -110,7 +105,7 @@ a {
 	display: none;
 }
 .Panel {
-	overflow: hidden;
+	overflow-y: scroll;
 	height: 100%;
 	padding: 0%;
 	margin: 10%;

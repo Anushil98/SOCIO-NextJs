@@ -15,10 +15,11 @@ body {
 
 	/* color palette */
 	--color1: #942727;
-	--color2: #5f1717;
+	--color2: #622525;
 	--color3: #773333;
 	--color4: #8c3737;
 	--text-color: #bd3232;
+	background-color: var(--color2);
 }
 
 @font-face {
@@ -125,7 +126,7 @@ a {
 }
 .Middle .Panel {
 	margin: auto;
-	padding-top: 20px;
+	padding-top: 10px;
 }
 .Middle .Panel::before {
 	content: 'Your Feed';
@@ -144,7 +145,7 @@ a {
 }
 
 #MidArea {
-	margin: -4% -2% 0 -2%;
+	margin: 0% -2% 0;
 	z-index: 1;
 }
 
@@ -172,6 +173,7 @@ a {
 	display: inline-block;
 	position: absolute;
 	background-color: #ffffff;
+	background-color: var(--color2);
 	width: 113px;
 	height: 113px;
 	border-radius: 50% 50% 0 0;

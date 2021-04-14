@@ -200,6 +200,8 @@
 	justify-content: center;
 	font-family: 'shanti';
 	color: #b24545;
+	min-height: 100px;
+	font-size: x-large;
 }
 
 /* .postCard::after {

@@ -119,6 +119,20 @@ export async function getServerSideProps({ req }) {
 				{ baseurl: '', filename: 'https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg' }
 			],
 			createdDate: new Date().toString()
+		},
+		{
+			userId: 'abcdwfgkjniuhs',
+			User: {
+				id: 'abcdwfgkjniuhs',
+				avatar:
+					'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
+				username: 'andrea',
+				firstname: 'Andrea',
+				lastname: 'JohnSon'
+			},
+			postId: 'kjjkojoljpoi',
+			Media: [],
+			createdDate: new Date().toString()
 		}
 	];
 	return {

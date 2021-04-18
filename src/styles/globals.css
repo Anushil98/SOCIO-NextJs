@@ -217,3 +217,7 @@ a {
 ::-webkit-scrollbar-thumb:hover {
 	background: rgba(0, 0, 0, 0.4);
 }
+
+.hide {
+	display: none;
+}

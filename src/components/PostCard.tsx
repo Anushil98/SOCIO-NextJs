@@ -1,32 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import useOutsideAlerter from '../helpers/outsideClick';
+import { NavBarContext, OptionType } from '../helpers/NavBarContext';
 import { timeAgo } from '../helpers/TimeAgoUtil';
 import { Post } from '../types/post.type';
 
 export default function PostCard(props: { post: Post; refProp?: any }) {
-	const [ optionsShow, setoptionsShow ] = useState(0);
-
 	const wrapper = useRef(null);
 
 	const [ mainImage, setmainImage ] = useState({ position: 0, prev: null, next: null });
 	const [ moveLeft, setmoveLeft ] = useState(false);
 	const [ moveRight, setmoveRight ] = useState(false);
-
-	useOutsideAlerter(wrapper, setoptionsShow);
-	const MenuOpenHandler = () => {
-		console.log('menu event listener e', optionsShow);
-		if (optionsShow) {
-			setoptionsShow(0);
-		} else {
-			setoptionsShow(1);
-		}
-		// console.log('menu event listener ex', optionsShow);
-	};
-	// const [ showCanvas, setshowCanvas ] = useState(0);
-	// const showCanvasHandler = () => {
-	// 	props.showCanvasHandler();
-	// };
 
 	const { post } = props;
 
@@ -34,9 +17,13 @@ export default function PostCard(props: { post: Post; refProp?: any }) {
 		<div className="postCard" ref={props.refProp || null}>
 			<div className="UserInfo">
 				<div className="UserAvatar">
-					<div className="avatar">
-						<img src={post.User.avatar} alt="" />
-					</div>
+					<NavBarContext.Consumer>
+						{({ changeOptions }) => (
+							<div className="avatar">
+								<img src={post.User.avatar} alt="" />
+							</div>
+						)}
+					</NavBarContext.Consumer>
 				</div>
 				<div className="UserDetails">
 					<div className="FullName">{post.User.firstname + ' ' + post.User.lastname}</div>
@@ -46,6 +33,22 @@ export default function PostCard(props: { post: Post; refProp?: any }) {
 						<div className="Time">{timeAgo.format(new Date(post.createdDate))}</div>
 					</div>
 				</div>
+				<NavBarContext.Consumer>
+					{({ changeOptions }) => (
+						<div
+							className="options"
+							onClick={() =>
+								changeOptions({
+									postId: post.postId,
+									userId: post.userId,
+									grpId: post.grpId,
+									options: OptionType.PostOptions
+								})}
+						>
+							<img src="/Full Logo.svg" />
+						</div>
+					)}
+				</NavBarContext.Consumer>
 			</div>
 			<div className="PostDetails">
 				<div className="postText">

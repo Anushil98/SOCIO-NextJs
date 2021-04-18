@@ -60,7 +60,7 @@ a {
 }
 
 .ContentArea {
-	height: 95vh;
+	height: 90%;
 	/* border-style: dashed; */
 	display: flex;
 	flex-direction: row;

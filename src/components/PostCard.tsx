@@ -4,7 +4,7 @@ import useOutsideAlerter from '../helpers/outsideClick';
 import { timeAgo } from '../helpers/TimeAgoUtil';
 import { Post } from '../types/post.type';
 
-export default function PostCard(props: { post: Post }) {
+export default function PostCard(props: { post: Post; refProp?: any }) {
 	const [ optionsShow, setoptionsShow ] = useState(0);
 
 	const wrapper = useRef(null);
@@ -31,7 +31,7 @@ export default function PostCard(props: { post: Post }) {
 	const { post } = props;
 
 	return (
-		<div className="postCard">
+		<div className="postCard" ref={props.refProp || null}>
 			<div className="UserInfo">
 				<div className="UserAvatar">
 					<div className="avatar">

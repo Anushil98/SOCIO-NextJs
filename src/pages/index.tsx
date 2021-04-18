@@ -1,144 +1,102 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AuthLayout from '../components/AuthLayout';
 import { Login } from '../components/login';
 import { MainLayout } from '../components/MainLayout';
 import Panel from '../components/panelDiv';
 import SideCard from '../components/SideCards';
 import checkAuth from '../helpers/checkAuth';
+import { FeedPostFetch } from '../helpers/fetchFeedPosts';
 import { getDeviceInfo } from '../helpers/getDeviceInfo';
-import { Post } from '../types/post.type';
 
-export default function Home(props: { deviceInfo: any; posts: Post[] }) {
+export default function Home(props: { deviceInfo: any }) {
 	const [ Layout, setLayout ] = useState(-1);
-	const [ showCanvas, setshowCanvas ] = useState(0);
-	const showCanvasHandler = () => {
-		setshowCanvas(showCanvas === 0 ? 1 : 0);
-	};
+	const [ page, setpage ] = useState(1);
+	// const [ showCanvas, setshowCanvas ] = useState(0);
+	// const showCanvasHandler = () => {
+	// 	setshowCanvas(showCanvas === 0 ? 1 : 0);
+	// };
 	// const wrapper = useRef(null);
 	// useOutsideAlerter(wrapper);
-	const { deviceInfo, posts } = props;
-	useEffect(() => {
-		if (checkAuth() === true) {
-			setLayout(1);
-		}
-		if (!checkAuth()) {
-			setLayout(0);
-		}
-	});
-	return Layout === 0 ? (
-		<AuthLayout>
-			<Login />
-		</AuthLayout>
-	) : Layout === 1 ? (
-		<MainLayout
-			leftSideBar={
-				deviceInfo === 'mobile' ? null : (
-					<Panel>
-						<SideCard>
-							<div>click me</div>
-						</SideCard>
-						<SideCard>hi</SideCard>
-						<SideCard>hi</SideCard>
-					</Panel>
-				)
+
+	if (typeof window !== 'undefined') {
+		const { hasMore, loading, posts } = FeedPostFetch(page);
+		// console.log(hasMore, loading, posts);
+		const observer = useRef(null);
+		const lastElement = useCallback(
+			(node) => {
+				// console.log(node, loading, hasMore, observer.current);
+				if (loading) return;
+				if (observer.current) {
+					// console.log('disconnecting');
+					observer.current.disconnect();
+				}
+				observer.current = new IntersectionObserver(
+					(entries) => {
+						// console.log(entries, 'this is entry', hasMore);
+						if (entries[0].isIntersecting && hasMore) {
+							// console.log('visible');
+							setpage((x) => x + 1);
+						}
+					},
+					{ root: document.querySelector('body'), threshold: 0.75 }
+				);
+				if (node) {
+					// console.log('observing', node);
+					observer.current.observe(node);
+				}
+			},
+			[ loading, hasMore ]
+		);
+
+		const { deviceInfo } = props;
+		useEffect(() => {
+			if (checkAuth() === true) {
+				setLayout(1);
 			}
-			Middle={<Panel posts={posts} />}
-			rightSideBar={
-				deviceInfo === 'mobile' ? null : (
-					<Panel>
-						<SideCard>you</SideCard>
-						<SideCard>hi</SideCard>
-						<SideCard>hi</SideCard>
-						<SideCard>hi</SideCard>
-					</Panel>
-				)
+			if (!checkAuth()) {
+				setLayout(0);
 			}
-		/>
-	) : null;
+		});
+		return Layout === 0 ? (
+			<AuthLayout>
+				<Login />
+			</AuthLayout>
+		) : Layout === 1 ? (
+			<MainLayout
+				leftSideBar={
+					deviceInfo === 'mobile' ? null : (
+						<Panel>
+							<SideCard>
+								<div>click me</div>
+							</SideCard>
+							<SideCard>hi</SideCard>
+							<SideCard>hi</SideCard>
+						</Panel>
+					)
+				}
+				Middle={<Panel posts={posts} refProp={lastElement} hasMore={hasMore} loading={loading} />}
+				rightSideBar={
+					deviceInfo === 'mobile' ? null : (
+						<Panel>
+							<SideCard>you</SideCard>
+							<SideCard>hi</SideCard>
+							<SideCard>hi</SideCard>
+							<SideCard>hi</SideCard>
+						</Panel>
+					)
+				}
+			/>
+		) : null;
+	}
+	return null;
 }
 
 export async function getServerSideProps({ req }) {
 	const getDeviceInformation = getDeviceInfo(req);
-	const posts: Post[] = [
-		{
-			userId: 'abcdwfgkjniuhs',
-			User: {
-				id: 'abcdwfgkjniuhs',
-				avatar:
-					'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
-				username: 'andrea',
-				firstname: 'Andrea',
-				lastname: 'JohnSon'
-			},
-			Media: [
-				{ baseurl: '', filename: 'https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg' },
-				{
-					baseurl: '',
-					filename: 'https://i.pinimg.com/originals/d9/de/11/d9de112b2c4aedef6df31d05194adf21.jpg'
-				},
-				{
-					baseurl: '',
-					filename:
-						'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-				}
-			],
-			postId: 'kjjkojoljpoi',
-			createdDate: new Date().toString()
-		},
-		{
-			userId: 'abcdwfgkjniuhs',
-			User: {
-				id: 'abcdwfgkjniuhs',
-				avatar:
-					'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
-				username: 'andrea',
-				firstname: 'Andrea',
-				lastname: 'JohnSon'
-			},
-			postId: 'kjjkojoljpoi',
-			Media: [],
-			createdDate: new Date().toString()
-		},
-		{
-			userId: 'abcdwfgkjniuhs',
-			User: {
-				id: 'abcdwfgkjniuhs',
-				avatar:
-					'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
-				username: 'andrea',
-				firstname: 'Andrea',
-				lastname: 'JohnSon'
-			},
-			postId: 'kjjkojoljpoi',
-			Media: [
-				{
-					baseurl: '',
-					filename:
-						'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-				},
-				{ baseurl: '', filename: 'https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg' }
-			],
-			createdDate: new Date().toString()
-		},
-		{
-			userId: 'abcdwfgkjniuhs',
-			User: {
-				id: 'abcdwfgkjniuhs',
-				avatar:
-					'https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg',
-				username: 'andrea',
-				firstname: 'Andrea',
-				lastname: 'JohnSon'
-			},
-			postId: 'kjjkojoljpoi',
-			Media: [],
-			createdDate: new Date().toString()
-		}
-	];
+
 	return {
 		props: {
-			deviceInfo: getDeviceInformation ? getDeviceInformation : null,
-			posts
+			deviceInfo: getDeviceInformation ? getDeviceInformation : null
 		}
 	};
 }

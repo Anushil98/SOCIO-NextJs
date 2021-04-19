@@ -18,7 +18,7 @@ export const MainLayout = (props) => {
 
 	const changeOptions = (data: { postId?: string; userId?: string; grpId?: string; options?: OptionType }) => {
 		setInputPropsForNavBar((x) => {
-			// console.log(data);
+			// console.log(x, data);
 			return { ...data };
 		});
 	};

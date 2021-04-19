@@ -6,12 +6,19 @@
 	height: auto;
 	z-index: 9999;
 }
+.NavBar * {
+	background-color: var(--navbar-color);
+	color: var(--text-color);
+	font-family: shanti;
+}
+.NavBar img {
+	background-color: rgba(0, 0, 0, 0);
+}
 
 .NavBar .NavBarTop {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	background-color: #ffffff;
 	box-shadow: 0px 5px 20px var(--color2);
 }
 
@@ -39,7 +46,7 @@
 	width: 100%;
 	border-style: solid;
 	border-width: 4px;
-	border-color: #942727;
+	border-color: var(--color2);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -47,16 +54,17 @@
 
 .ShowBottomBar {
 	height: 60px;
+
 	position: absolute;
 	top: -66px;
 	width: 60px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #fff6f6;
+	background-color: var(--div-color);
 	border-radius: 50%;
 	/* border-style: solid; */
-	border: 4px solid #942f2f;
+	border: 4px solid var(--color2);
 }
 
 .ShowBottomBar::before {
@@ -66,6 +74,20 @@
 	display: inline-block;
 	height: 35px;
 	width: 60px;
-	background-color: #942727;
+	background-color: var(--color2);
 	z-index: -1;
+}
+
+.ShowHaze {
+	position: fixed;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+	background-color: #ffffff00;
+	backdrop-filter: blur(7px);
+}
+
+.rotateCross {
+	animation: rotateCr 200ms ease-in-out forwards;
 }

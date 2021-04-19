@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import logout from '../helpers/logout';
 import { OptionType } from '../helpers/NavBarContext';
 import useOutsideAlerter from '../helpers/outsideClick';
@@ -12,7 +12,7 @@ export default function Navbar(props: {
 	};
 	changeOptions: (data: { postId?: string; userId?: string; grpId?: string; options?: OptionType }) => void;
 }) {
-	const [ showNavBarBottom, setshowNavBarBottom ] = useState(0);
+	// const [ options, setoptions ] = useState(undefined);
 
 	const wrapper = useRef(null);
 	useOutsideAlerter(wrapper, props.changeOptions);
@@ -27,27 +27,41 @@ export default function Navbar(props: {
 				</div>
 			</div>
 			<div className="NavBarBottom">
-				<div
-					className="ShowBottomBar"
-					onClick={() => {
-						setshowNavBarBottom(1);
-						return props.changeOptions({ userId: 'abcd', options: OptionType.CreatePost });
-					}}
-				>
-					<img src="./Full Logo.svg" />
-				</div>
+				{props.data.options && <div className="ShowHaze" />}
+				{props.data.options !== undefined ? (
+					<div
+						className="ShowBottomBar"
+						key="rev"
+						onClick={() => {
+							props.changeOptions({ options: undefined });
+						}}
+					>
+						<img src="./Full Logo.svg" className="rotateCross" />
+					</div>
+				) : (
+					<div
+						className="ShowBottomBar"
+						key="for"
+						onClick={() => {
+							props.changeOptions({ userId: 'abcd', options: OptionType.CreatePost });
+						}}
+					>
+						<img src="./Full Logo.svg" />
+					</div>
+				)}
 				<div className="BottomBarMain" ref={wrapper}>
-					{props.data.options === 'postoptions' ? (
+					{(props.data.options === 'postoptions' && (
 						<div className="PostOptions">
 							<div className="DeletePost">Delete</div>
 							<div className="SharePost">Share</div>
 							<div className="ReportPost">Report</div>
 						</div>
-					) : (
-						<div className="CreatePost">
-							<div>{props.data.options}</div>
-						</div>
-					)}
+					)) ||
+						(props.data.options === 'createpost' && (
+							<div className="CreatePost">
+								<div>{props.data.options}</div>
+							</div>
+						))}
 				</div>
 			</div>
 		</div>

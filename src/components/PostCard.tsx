@@ -103,7 +103,6 @@ export default function PostCard(props: { post: Post; refProp?: any }) {
 				) : null}
 				<div className="credSlider">
 					<div className="leftSlide" />
-					<div className="mainSlide">{7.5}</div>
 					<div className="rightSlide" />
 				</div>
 			</div>

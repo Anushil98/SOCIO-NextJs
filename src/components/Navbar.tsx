@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import logout from '../helpers/logout';
 import { OptionType } from '../helpers/NavBarContext';
 import useOutsideAlerter from '../helpers/outsideClick';
+import { CreatePost } from './CreatePost/createPost';
 
 export default function Navbar(props: {
 	data: {
@@ -57,11 +58,7 @@ export default function Navbar(props: {
 							<div className="ReportPost">Report</div>
 						</div>
 					)) ||
-						(props.data.options === 'createpost' && (
-							<div className="CreatePost">
-								<div>{props.data.options}</div>
-							</div>
-						))}
+						(props.data.options === 'createpost' && <CreatePost data={props.data} />)}
 				</div>
 			</div>
 		</div>

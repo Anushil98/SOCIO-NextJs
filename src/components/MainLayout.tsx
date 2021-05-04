@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { NavBarContext, OptionType } from '../helpers/NavBarContext';
-import { CreatePost } from './createPost';
 import Navbar from './Navbar';
 
 export const MainLayout = (props) => {
@@ -32,7 +31,6 @@ export const MainLayout = (props) => {
 					<link rel="icon" href="/Full Logo.svg" />
 				</Head>
 				{props.children}
-				<CreatePost show={showCreatePost} />
 				<NavBarContext.Consumer>
 					{({ changeOptions }) => {
 						return <Navbar data={InputPropsForNavBar} changeOptions={changeOptions} />;

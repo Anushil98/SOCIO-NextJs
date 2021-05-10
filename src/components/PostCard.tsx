@@ -55,7 +55,7 @@ export default function PostCard(props: { post: Post; refProp?: any }) {
 					We are in this together. Lets us focus on this situation like an opportunuty and then we will all do
 					it once again. It is time for us to win against this virus
 				</div>
-				{post.Media.length > 0 ? (
+				{post.Media && post.Media.length > 0 ? (
 					<div className="ImageSlider">
 						<div
 							className="LeftImageSlide"

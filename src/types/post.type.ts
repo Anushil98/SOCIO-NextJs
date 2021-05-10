@@ -6,10 +6,11 @@ export interface Media {
 }
 
 export interface PostInput {
+  userId:string;
   parentId?: string;
   grpId?: string;
   text: string;
-  Media: Media[];
+  Media?: Media[];
 }
 
 export enum PostType {

@@ -4,7 +4,7 @@ import { MainLayout } from '../../components/MainLayout';
 
 function Profile(props) {
 	const [ Posts, setPosts ] = useState(props.posts);
-	return <MainLayout />;
+	return <MainLayout Middle={<div>userId based page</div>} />;
 }
 
 export async function getServerSideProps(context) {
@@ -44,7 +44,7 @@ export async function getServerSideProps(context) {
 		console.error(err.message);
 	}
 	return {
-		props: { userId: context.params.userId, posts }
+		props: { userId: context.params.userId, posts: posts || null }
 	};
 }
 

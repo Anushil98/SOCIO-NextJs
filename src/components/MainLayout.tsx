@@ -4,7 +4,7 @@ import { LoggedInUserContext } from '../helpers/LoggedInUserContext';
 import { NavBarContext, OptionType } from '../helpers/NavBarContext';
 import Navbar from './Navbar';
 
-export const MainLayout = (props) => {
+export const MainLayout = (props: { Middle: any; leftSideBar?: any; rightSideBar?: any }) => {
 	const [ showCreatePost, setshowCreatePost ] = useState(0);
 	const showCreatePostModal = () => {
 		setshowCreatePost(showCreatePost === 0 ? 1 : 0);
@@ -31,7 +31,6 @@ export const MainLayout = (props) => {
 						<link rel="preload" href="/fonts/Shanti/Shanti-Regular.ttf" as="font" crossOrigin="" />
 						<link rel="icon" href="/Full Logo.svg" />
 					</Head>
-					{props.children}
 					<NavBarContext.Consumer>
 						{({ changeOptions }) => {
 							return <Navbar data={InputPropsForNavBar} changeOptions={changeOptions} />;

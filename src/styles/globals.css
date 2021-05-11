@@ -142,7 +142,12 @@ a {
 	font-family: 'shanti';
 	color: var(--text-color);
 }
-
+.NoPsuedo::before {
+	content: none !important;
+}
+.NoPsuedo::after {
+	content: none !important;
+}
 #MidArea {
 	margin: 0% -2% 0;
 	z-index: 1;

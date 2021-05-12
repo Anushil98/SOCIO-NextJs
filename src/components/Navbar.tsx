@@ -1,3 +1,4 @@
+import MenuIcon from '@material-ui/icons/Menu';
 import React, { useRef } from 'react';
 import logout from '../helpers/logout';
 import { OptionType } from '../helpers/NavBarContext';
@@ -12,6 +13,7 @@ export default function Navbar(props: {
 		options?: OptionType;
 	};
 	changeOptions: (data: { postId?: string; userId?: string; grpId?: string; options?: OptionType }) => void;
+	showSideBar: React.Dispatch<React.SetStateAction<number>>;
 }) {
 	// const [ options, setoptions ] = useState(undefined);
 
@@ -21,6 +23,7 @@ export default function Navbar(props: {
 		<div className="NavBar">
 			<div className="NavBarTop">
 				<div className="NavBarTop-Left">
+					<MenuIcon fontSize="large" onClick={() => props.showSideBar((x) => (x ? 0 : 1))} />
 					<img src="/FullLogoVertical.svg" alt="Logo" className="Logo" onClick={() => logout()} />
 				</div>
 				<div className="NavBarTop-Right">

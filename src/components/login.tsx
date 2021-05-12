@@ -14,7 +14,7 @@ export const Login = () => {
 		[ username, success ]
 	);
 	const login = async () => {
-		Router.push('/HomePage');
+		Router.push('/');
 		localStorage.setItem('Authentication', 'testVlue');
 
 		const data = JSON.stringify({

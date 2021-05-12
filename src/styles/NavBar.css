@@ -24,6 +24,8 @@
 
 .NavBar .NavBarTop .NavBarTop-Left {
 	flex: 50%;
+	display: flex;
+	align-items: center;
 }
 
 .NavBar .NavBarTop .NavBarTop-Right {

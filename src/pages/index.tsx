@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AuthLayout from '../components/AuthLayout';
 import { Login } from '../components/login';
@@ -52,14 +53,23 @@ export default function Home(props: { deviceInfo: any }) {
 		});
 		return Layout === 0 ? (
 			<AuthLayout>
+				<Head>
+					<title>Login</title>
+					{(document.body.style.backgroundColor = 'var(--lightBackground)')}
+				</Head>
 				<Login />
 			</AuthLayout>
 		) : Layout === 1 ? (
 			<MainLayout
 				leftSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}
-				Middle={<Panel feed={true}posts={posts} refProp={lastElement} hasMore={hasMore} loading={loading} />}
+				Middle={<Panel feed={true} posts={posts} refProp={lastElement} hasMore={hasMore} loading={loading} />}
 				rightSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}
-			/>
+			>
+				<Head>
+					<title>SOCIO</title>
+					{(document.body.style.backgroundColor = 'var(--darkBackground)')}
+				</Head>
+			</MainLayout>
 		) : null;
 	}
 	return null;

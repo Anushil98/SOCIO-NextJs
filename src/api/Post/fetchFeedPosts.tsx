@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getPostApi } from '../staticData/posts';
-import { Post } from '../types/post.type';
+import { Post } from '../../types/post.type';
+import { getPostApi } from './getPosts';
 
 export function FeedPostFetch(page: number): { posts: Array<Post>; loading: boolean; hasMore: boolean } {
 	const [ loading, setloading ] = useState(true);

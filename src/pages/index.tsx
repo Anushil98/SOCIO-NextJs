@@ -1,20 +1,16 @@
 import Head from 'next/head';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { FeedPostFetch } from '../api/Post/fetchFeedPosts';
 import AuthLayout from '../components/AuthLayout';
 import { Login } from '../components/login';
 import { MainLayout } from '../components/MainLayout';
 import Panel from '../components/panelDiv';
 import checkAuth from '../helpers/checkAuth';
-import { FeedPostFetch } from '../helpers/fetchFeedPosts';
 import { getDeviceInfo } from '../helpers/getDeviceInfo';
 
 export default function Home(props: { deviceInfo: any }) {
 	const [ Layout, setLayout ] = useState(-1);
 	const [ page, setpage ] = useState(1);
-	// const [ showCanvas, setshowCanvas ] = useState(0);
-	// const showCanvasHandler = () => {
-	// 	setshowCanvas(showCanvas === 0 ? 1 : 0);
-	// };
 	// const wrapper = useRef(null);
 	// useOutsideAlerter(wrapper);
 

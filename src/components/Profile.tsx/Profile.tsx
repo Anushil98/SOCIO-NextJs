@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { FeedPostFetch } from '../../helpers/fetchFeedPosts';
+import { FeedPostFetch } from '../../api/Post/fetchFeedPosts';
 import { User } from '../../types/user.type';
 import Panel from '../panelDiv';
 

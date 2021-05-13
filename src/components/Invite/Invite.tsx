@@ -41,7 +41,8 @@ const Avatar =
 	min-width: 70px;
 	border-radius: 50%;
     background-repeat: no-repeat;
-    background-size: cover;display:block;
+    background-size: cover;
+	display:block;
 `;
 const Message = styled.div`
 	margin-left: 10px;

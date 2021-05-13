@@ -1,5 +1,5 @@
 import React from 'react';
-import GroupMainPage from '../../components/Group/GroupPage/group';
+import GroupMainPage from '../../components/Group/GroupPage/GroupMainPage';
 import { MainLayout } from '../../components/MainLayout';
 
 function UserProfile(props: { grpId: string }) {

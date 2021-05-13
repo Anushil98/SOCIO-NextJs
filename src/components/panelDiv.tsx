@@ -1,7 +1,7 @@
 import React from 'react';
 import { Post } from '../types/post.type';
+import Loader from './Loaders/Loader';
 import SideCard from './SideCards';
-
 
 export default function Panel(props: {
 	posts?: Post[];
@@ -9,10 +9,10 @@ export default function Panel(props: {
 	refProp?: any;
 	hasMore?: boolean;
 	loading?: boolean;
-	feed:boolean;
+	feed: boolean;
 }) {
 	return (
-		<div className={`Panel ${props.feed?"":"NoPsuedo"}`} >
+		<div className={`Panel ${props.feed ? '' : 'NoPsuedo'}`}>
 			{props.children}
 			{props.posts ? (
 				props.posts.map((post, index) => {
@@ -22,7 +22,7 @@ export default function Panel(props: {
 					return <SideCard key={post.postId} post={post} />;
 				})
 			) : null}
-			{props.loading ? <SideCard loading={true} key={'Loading'} /> : null}
+			{props.loading ? <Loader /> : null}
 			{!props.hasMore && !props.loading ? <SideCard end={true} key={'LastKey'} /> : null}
 		</div>
 	);

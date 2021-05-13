@@ -16,6 +16,7 @@ const Aside = styled.aside`
 	background-color: var(--div-color);
 	position: absolute;
 	z-index: 999;
+	overscroll-behavior: contain;
 `;
 
 const Close = styled.div`

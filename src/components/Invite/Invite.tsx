@@ -3,7 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { FetchInvites } from '../../api/Invites/fetchInvites';
 import { InviteStateEnum } from '../../types/invite.type';
-import SideCard from '../SideCards';
+import Loader from '../Loaders/Loader';
 
 const Invites = styled.div`
 	margin-top: 10px;
@@ -82,10 +82,13 @@ const Action =
 `;
 
 const State = styled.div`
+	font-size: small;
+	margin-right: 11px;
 	.accept {
 		background-color: var(--color1);
 		color: var(--div-color);
 		padding: 8px 12px;
+		font-family: shanti;
 		border-radius: 25px;
 	}
 	.reject {
@@ -93,6 +96,7 @@ const State = styled.div`
 		color: var(--color1);
 		border: 2px solid var(--color1);
 		padding: 8px 12px;
+		font-family: shanti;
 		border-radius: 25px;
 	}
 `;
@@ -163,7 +167,7 @@ export default function Invite() {
 					</InviteCard>
 				);
 			})}
-			{loading ? <SideCard loading={true} key={'Loading'} /> : null}
+			{loading ? <Loader /> : null}
 			{/* {!hasMore && !loading ? <SideCard end={true} key={'LastKey'} /> : null} */}
 		</Invites>
 	);

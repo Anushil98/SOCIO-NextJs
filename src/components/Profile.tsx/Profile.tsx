@@ -79,7 +79,7 @@ const FollowersButton = styled.button`
 	height: 40px;
 	border: 2px solid var(--color1);
 	background-color: var(--div-color);
-	border-radius: 10%;
+	border-radius: 25px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -90,7 +90,7 @@ const FollowingsButton = styled.button`
 	height: 40px;
 	border: 2px solid var(--color1);
 	background-color: var(--div-color);
-	border-radius: 10%;
+	border-radius: 25px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;

@@ -17,6 +17,7 @@ export const invites: invite[] = [
 		guestId: 'abcde',
 		Group: {
 			grpId: '1',
+			cover: null,
 			grpBio: 'This is a bio',
 			grpName: 'LearnWithME',
 			grpHandle: 'learnWithMe',
@@ -40,6 +41,7 @@ export const invites: invite[] = [
 		guestId: 'abcde',
 		Group: {
 			grpId: '1',
+			cover: null,
 			grpBio: 'This is a bio',
 			grpName: 'LearnWithME',
 			grpHandle: 'learnWithMe',
@@ -65,6 +67,7 @@ export const invites: invite[] = [
 			grpId: '1',
 			grpBio: 'This is a bio',
 			grpName: 'LearnWithME',
+			cover: null,
 			grpHandle: 'learnWithMe',
 			ownerId: 'abcd',
 			createdDate: new Date()
@@ -90,6 +93,7 @@ export const invites: invite[] = [
 			grpName: 'LearnWithME',
 			grpHandle: 'learnWithMe',
 			ownerId: 'abcd',
+			cover: null,
 			createdDate: new Date()
 		}
 	},
@@ -112,6 +116,7 @@ export const invites: invite[] = [
 			grpBio: 'This is a bio',
 			grpName: 'LearnWithME',
 			grpHandle: 'learnWithMe',
+			cover: null,
 			ownerId: 'abcd',
 			createdDate: new Date()
 		}
@@ -136,7 +141,8 @@ export const invites: invite[] = [
 			grpName: 'LearnWithME',
 			grpHandle: 'learnWithMe',
 			ownerId: 'abcd',
-			createdDate: new Date()
+			createdDate: new Date(),
+			cover: null
 		}
 	},
 	{
@@ -157,6 +163,7 @@ export const invites: invite[] = [
 			grpId: '1',
 			grpBio: 'This is a bio',
 			grpName: 'LearnWithME',
+			cover: null,
 			grpHandle: 'learnWithMe',
 			ownerId: 'abcd',
 			createdDate: new Date()
@@ -179,6 +186,7 @@ export const invites: invite[] = [
 		Group: {
 			grpId: '1',
 			grpBio: 'This is a bio',
+			cover: null,
 			grpName: 'LearnWithME',
 			grpHandle: 'learnWithMe',
 			ownerId: 'abcd',

@@ -97,8 +97,21 @@ const FollowingsButton = styled.button`
 	align-items: center;
 	color: var(--text-color);
 `;
+const FollowButton = styled.button`
+	height: 40px;
+	width: 100px;
+	background-color: var(--color1);
+	border: none;
+	color: var(--div-color);
+	border-radius: 25px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+`;
 
-export default function Profile() {
+export default function Profile(props: { currentUser: boolean; userId?: string }) {
 	const [ userDetails, setuserDetails ] = useState<User>(null);
 	const [ counts, setCounts ] = useState<{ followers: number; followings: number }>({ followers: 5, followings: 10 });
 	const [ page, setpage ] = useState(1);
@@ -142,6 +155,8 @@ export default function Profile() {
 							<UserDetails>
 								<FullName>Andrea JohnSon</FullName>
 								<UserName>@andrea</UserName>
+								{!props.currentUser ? <FollowButton>Follow</FollowButton> : null}
+
 								<UserRelation>
 									<FollowersButton>Followers {counts ? counts.followers : null}</FollowersButton>
 									<FollowingsButton>Followings {counts ? counts.followings : null}</FollowingsButton>

@@ -1,9 +1,9 @@
 import React from 'react';
-import Group from '../../components/Group/GroupPage/group';
+import GroupMainPage from '../../components/Group/GroupPage/group';
 import { MainLayout } from '../../components/MainLayout';
 
 function UserProfile(props: { grpId: string }) {
-	return <MainLayout Middle={<Group grpId={props.grpId} />} />;
+	return <MainLayout Middle={<GroupMainPage grpId={props.grpId} />} />;
 }
 
 export default UserProfile;

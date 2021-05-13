@@ -146,7 +146,7 @@ const Collapse =
 		justify-content: center;
 	}
 `;
-export default function Group(props: { grpId: string }) {
+export default function GroupMainPage(props: { grpId: string }) {
 	const [ page, setpage ] = useState(1);
 	const { hasMore, loading, members } = FetchMembers(page, props.grpId);
 	const observer = useRef(null);

@@ -1,12 +1,14 @@
-import { CircularProgress } from '@material-ui/core';
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { LoggedInUserContext } from '../../helpers/LoggedInUserContext';
+import Loader from '../Loaders/Loader';
 import { FetchGroups } from './FetchGroup';
+import GroupPosts from './GroupPosts';
 
 const GroupsPanel = styled.div`
 	margin-top: 10px;
 	height: 100%;
-	overflow-y: scroll;
+	/* overflow-y: scroll; */
 	overflow-x: hidden;
 	display: flex;
 	flex-direction: column;
@@ -24,9 +26,11 @@ const GroupsScroll = styled.div`
 	width: 100vw;
 	height: 180px;
 	overflow-x: scroll;
+	overflow-y: hidden;
 	scroll-behavior: smooth;
 	white-space: nowrap;
 	padding: 10px;
+	margin-bottom: 20px;
 	::-webkit-scrollbar {
 		width: 0px;
 	}
@@ -65,13 +69,6 @@ const GroupCard =
 		padding:3px 3px 0px 5px;
 	}
 `;
-const Loader = styled.div`
-	width: 50px;
-	height: 100px;
-	color: var(--div-color);
-	display: flex;
-	align-items: center;
-`;
 
 export default function Groups() {
 	const [ page, setpage ] = useState(1);
@@ -99,24 +96,32 @@ export default function Groups() {
 	);
 	return (
 		<GroupsPanel>
-			<GroupsScroll>
-				{groups.map((group, index) => {
+			<LoggedInUserContext.Consumer>
+				{(value: string) => {
+					console.log(value);
 					return (
-						<GroupCard
-							bgImg={group.cover || '/default/cover.jpg'}
-							key={group.grpId}
-							ref={groups.length - 1 === index ? lastElement : null}
-						>
-							<p>{group.grpName}</p>
-						</GroupCard>
+						<GroupPosts
+							userId={value}
+							children={
+								<GroupsScroll>
+									{groups.map((group, index) => {
+										return (
+											<GroupCard
+												bgImg={group.cover || '/default/cover.jpg'}
+												key={group.grpId}
+												ref={groups.length - 1 === index ? lastElement : null}
+											>
+												<p>{group.grpName}</p>
+											</GroupCard>
+										);
+									})}
+									{loading ? <Loader /> : null}
+								</GroupsScroll>
+							}
+						/>
 					);
-				})}
-				{loading ? (
-					<Loader>
-						<CircularProgress color="inherit" />
-					</Loader>
-				) : null}
-			</GroupsScroll>
+				}}
+			</LoggedInUserContext.Consumer>
 		</GroupsPanel>
 	);
 }

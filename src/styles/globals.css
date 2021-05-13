@@ -26,6 +26,7 @@ body {
 	--loader-color: #fff6f6;
 	--navbar-color: #ffffff;
 	background-color: var(--color2);
+	overflow: hidden;
 }
 
 @font-face {

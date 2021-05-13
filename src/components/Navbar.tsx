@@ -40,7 +40,7 @@ export default function Navbar(props: {
 							props.changeOptions({ options: undefined });
 						}}
 					>
-						<img src="./Full Logo.svg" className="rotateCross" />
+						<img src="/Full Logo.svg" className="rotateCross" />
 					</div>
 				) : (
 					<div
@@ -50,7 +50,7 @@ export default function Navbar(props: {
 							props.changeOptions({ userId: 'abcd', options: OptionType.CreatePost });
 						}}
 					>
-						<img src="./Full Logo.svg" />
+						<img src="/Full Logo.svg" />
 					</div>
 				)}
 				<div className="BottomBarMain" ref={wrapper}>

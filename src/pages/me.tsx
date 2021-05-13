@@ -4,11 +4,13 @@ import { MainLayout } from '../components/MainLayout';
 import Profile from '../components/Profile.tsx/Profile';
 
 export default function me() {
-	return (
-		<MainLayout Middle={<Profile />}>
-			<Head>
-				<title>My Profile</title>
-			</Head>
-		</MainLayout>
-	);
+	if (typeof window !== 'undefined') {
+		return (
+			<MainLayout Middle={<Profile currentUser={true} />}>
+				<Head>
+					<title>My Profile</title>
+				</Head>
+			</MainLayout>
+		);
+	} else return null;
 }

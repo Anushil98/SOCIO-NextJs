@@ -1,4 +1,5 @@
 import MenuIcon from '@material-ui/icons/Menu';
+import Router from 'next/router';
 import React, { useRef } from 'react';
 import logout from '../helpers/logout';
 import { OptionType } from '../helpers/NavBarContext';
@@ -27,7 +28,14 @@ export default function Navbar(props: {
 					<img src="/FullLogoVertical.svg" alt="Logo" className="Logo" onClick={() => logout()} />
 				</div>
 				<div className="NavBarTop-Right">
-					<img src="/SearchIcon.svg" alt="" className="SearchButton" />
+					<img
+						src="/SearchIcon.svg"
+						alt=""
+						className="SearchButton"
+						onClick={() => {
+							Router.push('/search');
+						}}
+					/>
 				</div>
 			</div>
 			<div className="NavBarBottom">

@@ -1,3 +1,4 @@
+import AddIcon from '@material-ui/icons/Add';
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { LoggedInUserContext } from '../../helpers/LoggedInUserContext';
@@ -70,6 +71,19 @@ const GroupCard =
 	}
 `;
 
+const GroupSection = styled.div`height: fit-content;`;
+const CreateGroup = styled.div`
+	height: fit-content;
+	padding: 10px 0px;
+	color: var(--text-color);
+	background-color: var(--div-color);
+	display: flex;
+	align-items: center;
+
+	svg {
+		margin: 0px 10px;
+	}
+`;
 export default function Groups() {
 	const [ page, setpage ] = useState(1);
 	const { hasMore, loading, groups } = FetchGroups(page);
@@ -98,25 +112,30 @@ export default function Groups() {
 		<GroupsPanel>
 			<LoggedInUserContext.Consumer>
 				{(value: string) => {
-					console.log(value);
 					return (
 						<GroupPosts
 							userId={value}
 							children={
-								<GroupsScroll>
-									{groups.map((group, index) => {
-										return (
-											<GroupCard
-												bgImg={group.cover || '/default/cover.jpg'}
-												key={group.grpId}
-												ref={groups.length - 1 === index ? lastElement : null}
-											>
-												<p>{group.grpName}</p>
-											</GroupCard>
-										);
-									})}
-									{loading ? <Loader /> : null}
-								</GroupsScroll>
+								<GroupSection>
+									<CreateGroup>
+										<AddIcon />
+										Create a group
+									</CreateGroup>
+									<GroupsScroll>
+										{groups.map((group, index) => {
+											return (
+												<GroupCard
+													bgImg={group.cover || '/default/cover.jpg'}
+													key={index}
+													ref={groups.length - 1 === index ? lastElement : null}
+												>
+													<p>{group.grpName}</p>
+												</GroupCard>
+											);
+										})}
+										{loading ? <Loader /> : null}
+									</GroupsScroll>
+								</GroupSection>
 							}
 						/>
 					);

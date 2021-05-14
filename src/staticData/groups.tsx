@@ -8,7 +8,7 @@ export const Groups: Group[] = [
 		grpBio:
 			'This is a group where members can share an exclusive community to share ideas and thoughts about the tech world.',
 		grpHandle: 'LearnWithMe',
-		grpName: 'Learn With Me and anushil',
+		grpName: 'Learn With Me and anushil kjhkjhkjlhjkdhjkashdjkashdjk akjsdhkjashdkjashmbjkashdjkashdkjh',
 		createdDate: new Date()
 	},
 	{

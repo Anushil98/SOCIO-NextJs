@@ -1,17 +1,26 @@
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Head from 'next/head';
+import Router from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 
 const Bar = styled.div`
 	height: 60px;
-	width: 90vw;
+	width: 100vw;
 	display: flex;
 	justify-content: flex-start;
-	margin: 10px 5px 10px 10px;
+	margin: 10px 5px 10px 0px;
 	border: 2px solid var(--div-color);
 	background-color: var(--navbar-color);
-	border-radius: 31px 0px 0px 31px;
+	align-items: center;
 
+	svg {
+		color: var(--text-color);
+	}
+	img {
+		height: 50px;
+		width: 50px;
+	}
 	textarea {
 		resize: none;
 		border: none;
@@ -47,6 +56,14 @@ export default function SearchBar(props: {
 					props.changeValue(e.currentTarget.value);
 				}}
 			/>
+			<ArrowBackIcon
+				fontSize="large"
+				onClick={() => {
+					console.log('jhuih');
+					Router.back();
+				}}
+			/>
+
 			<Head>
 				<title>Search</title>
 				<link rel="preload" href="/fonts/Skranji/Skranji-Bold.ttf" as="font" crossOrigin="" />

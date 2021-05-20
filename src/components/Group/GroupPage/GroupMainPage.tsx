@@ -1,7 +1,8 @@
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { getGroupDetails } from '../../../api/Post/getGroupDetails';
 import { LoggedInUserContext } from '../../../helpers/LoggedInUserContext';
 import { Group as GroupType } from '../../../types/group.type';
 import Loader from '../../Loaders/Loader';
@@ -172,48 +173,57 @@ export default function GroupMainPage(props: { grpId: string }) {
 	);
 	const [ group, setgroup ] = useState<GroupType>(null);
 	const [ showMember, setshowMember ] = useState(false);
-	return (
-		<LoggedInUserContext.Consumer>
-			{(value) => {
-				return (
-					<GroupPosts
-						userId={value}
-						grpId={props.grpId}
-						children={
-							<GroupDetails>
-								<Cover cover={group && group.cover ? group.cover : '/default/cover.jpg'} />
-								<GroupIdentifiers>
-									<div className="grpName">Group Name</div>
-									<div className="grpHandle">@{'Group Handle'}</div>
-									<button className="join">Join</button>
-									<button className="TotMem">6 Members</button>
-								</GroupIdentifiers>
-								<Collapse onClick={() => setshowMember((x) => !x)} showMargin={!showMember}>
-									<div className="label">Members</div>
-									{!showMember ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-								</Collapse>
 
-								{showMember ? (
-									<GroupsScroll>
-										{members.map((user, index) => {
-											return (
-												<GroupCard
-													bgImg={user.avatar || '/default/cover.jpg'}
-													key={user.id}
-													ref={members.length - 1 === index ? lastElement : null}
-												>
-													<p>{user.firstname + ' ' + user.lastname}</p>
-												</GroupCard>
-											);
-										})}
-										{loading ? <Loader /> : null}
-									</GroupsScroll>
-								) : null}
-							</GroupDetails>
-						}
-					/>
-				);
-			}}
-		</LoggedInUserContext.Consumer>
-	);
+	useEffect(() => {
+		if (group === null)
+			getGroupDetails(props.grpId).then((grp) => {
+				setgroup(grp);
+			});
+	}, []);
+	if (typeof window !== undefined && group !== null)
+		return (
+			<LoggedInUserContext.Consumer>
+				{(value) => {
+					return (
+						<GroupPosts
+							userId={value}
+							grpId={props.grpId}
+							children={
+								<GroupDetails>
+									<Cover cover={group && group.cover ? group.cover : '/default/cover.jpg'} />
+									<GroupIdentifiers>
+										<div className="grpName">{group.grpName}</div>
+										<div className="grpHandle">@{group.grpHandle}</div>
+										<button className="join">Join</button>
+										<button className="TotMem">6 Members</button>
+									</GroupIdentifiers>
+									<Collapse onClick={() => setshowMember((x) => !x)} showMargin={!showMember}>
+										<div className="label">Members</div>
+										{!showMember ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+									</Collapse>
+
+									{showMember ? (
+										<GroupsScroll>
+											{members.map((user, index) => {
+												return (
+													<GroupCard
+														bgImg={user.avatar || '/default/cover.jpg'}
+														key={user.id}
+														ref={members.length - 1 === index ? lastElement : null}
+													>
+														<p>{user.firstname + ' ' + user.lastname}</p>
+													</GroupCard>
+												);
+											})}
+											{loading ? <Loader /> : null}
+										</GroupsScroll>
+									) : null}
+								</GroupDetails>
+							}
+						/>
+					);
+				}}
+			</LoggedInUserContext.Consumer>
+		);
+	else return null;
 }

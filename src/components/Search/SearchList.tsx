@@ -25,7 +25,7 @@ const SearchCard = styled.div`
 	margin: 3px 0px 3px 0px;
 	display: flex;
 	justify-content: flex-start;
-	padding: 0px 0px 0px 10px;
+	padding: 5px 0px 5px 10px;
 `;
 
 const Avatar =

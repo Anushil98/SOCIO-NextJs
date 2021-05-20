@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Post } from '../../types/post.type';
-import { getUsersGroupPosts } from './getUsersGroupPosts';
+import { getGroupPosts } from './getGroupPosts';
 
-export function GroupPostsFetch(
+export function IndividualGroupPosts(
 	page: number,
-	userId: string
+	grpId: string
 ): { posts: Array<Post>; loading: boolean; hasMore: boolean } {
 	const [ loading, setloading ] = useState(true);
 	const [ hasMore, sethasMore ] = useState(false);
@@ -12,7 +12,7 @@ export function GroupPostsFetch(
 	useEffect(
 		() => {
 			setloading(true);
-			getUsersGroupPosts(page).then((posts) => {
+			getGroupPosts(grpId, page).then((posts) => {
 				setposts((prev) => [ ...prev, ...posts ]);
 				if (posts.length === 3) {
 					sethasMore(true);

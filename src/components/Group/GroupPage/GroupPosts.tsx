@@ -1,10 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { GroupPostsFetch } from '../../../api/Post/fetchGroupPosts';
+import { IndividualGroupPosts } from '../../../api/Post/IndividualGroupPosts';
 import Panel from '../../panelDiv';
 
 export default function GroupPosts(props: { userId: string; grpId: string; children: any }) {
 	const [ page, setpage ] = useState(1);
-	const { hasMore, loading, posts } = GroupPostsFetch(page, props.userId);
+	const { hasMore, loading, posts } = IndividualGroupPosts(page, props.grpId);
 	const observer = useRef(null);
 	const lastElement = useCallback(
 		(node) => {

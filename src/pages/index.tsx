@@ -11,6 +11,7 @@ import { getDeviceInfo } from '../helpers/getDeviceInfo';
 export default function Home(props: { deviceInfo: any }) {
 	const [ Layout, setLayout ] = useState(-1);
 	const [ page, setpage ] = useState(1);
+	const [ loggedInUser, setLoggedInUser ] = useState<string>(null);
 	// const wrapper = useRef(null);
 	// useOutsideAlerter(wrapper);
 
@@ -40,12 +41,15 @@ export default function Home(props: { deviceInfo: any }) {
 
 		const { deviceInfo } = props;
 		useEffect(() => {
-			if (checkAuth() === true) {
-				setLayout(1);
-			}
-			if (!checkAuth()) {
-				setLayout(0);
-			}
+			checkAuth().then((res) => {
+				const { status, userId } = res;
+				if (status) {
+					setLoggedInUser(userId);
+					setLayout(1);
+				} else {
+					setLayout(0);
+				}
+			});
 		});
 		return Layout === 0 ? (
 			<AuthLayout>
@@ -57,6 +61,7 @@ export default function Home(props: { deviceInfo: any }) {
 			</AuthLayout>
 		) : Layout === 1 ? (
 			<MainLayout
+				loggedInUser={loggedInUser}
 				leftSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}
 				Middle={<Panel feed={true} posts={posts} refProp={lastElement} hasMore={hasMore} loading={loading} />}
 				rightSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}

@@ -20,7 +20,7 @@ export default function PostCard(props: { post: Post; refProp?: any }) {
 					<NavBarContext.Consumer>
 						{({ changeOptions }) => (
 							<div className="avatar">
-								<img src={post.User.avatar} alt="" />
+								<img src={post.User.avatar || '/default/avatar.svg'} alt="" />
 							</div>
 						)}
 					</NavBarContext.Consumer>
@@ -51,10 +51,7 @@ export default function PostCard(props: { post: Post; refProp?: any }) {
 				</NavBarContext.Consumer>
 			</div>
 			<div className="PostDetails">
-				<div className="postText">
-					We are in this together. Lets us focus on this situation like an opportunuty and then we will all do
-					it once again. It is time for us to win against this virus
-				</div>
+				<div className="postText">{post.text}</div>
 				{post.Media && post.Media.length > 0 ? (
 					<div className="ImageSlider">
 						<div
@@ -106,9 +103,9 @@ export default function PostCard(props: { post: Post; refProp?: any }) {
 					<div className="rightSlide" />
 				</div>
 			</div>
-			<div className="conversation">
+			{/* <div className="conversation">
 				<img src="/chat.svg" />
-			</div>
+			</div> */}
 		</div>
 	);
 }

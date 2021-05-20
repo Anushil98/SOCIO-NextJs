@@ -1,6 +1,7 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { FeedPostFetch } from '../../api/Post/fetchFeedPosts';
+import { getUserDetails } from '../../api/User/getUserDetails';
 import { User } from '../../types/user.type';
 import Panel from '../panelDiv';
 
@@ -33,6 +34,7 @@ const Avatar =
     background-image:${(props) => {
 		return `url(${props.bgImg})`;
 	}};
+	background-color: var(--div-color);
 	height: 100px;
 	width: 100px;
 	border-radius: 50%;
@@ -137,6 +139,15 @@ export default function Profile(props: { currentUser: boolean; userId?: string }
 		},
 		[ loading, hasMore ]
 	);
+
+	useEffect(() => {
+		if (userDetails === null && props.userId) {
+			getUserDetails(props.userId).then((user) => {
+				console.log(user);
+				setuserDetails(user);
+			});
+		}
+	});
 	return (
 		<ProfileSection>
 			{typeof window !== 'undefined' ? (
@@ -148,13 +159,15 @@ export default function Profile(props: { currentUser: boolean; userId?: string }
 							<Cover cover={userDetails && userDetails.cover ? userDetails.cover : '/default/cover.jpg'}>
 								<Avatar
 									bgImg={
-										userDetails && userDetails.avatar ? userDetails.avatar : '/default/avatar.jpg'
+										userDetails && userDetails.avatar ? userDetails.avatar : '/default/avatar.svg'
 									}
 								/>
 							</Cover>
 							<UserDetails>
-								<FullName>Andrea JohnSon</FullName>
-								<UserName>@andrea</UserName>
+								<FullName>
+									{userDetails ? `${userDetails.firstname} ${userDetails.lastname || ''}` : ''}
+								</FullName>
+								<UserName>@{userDetails ? `${userDetails.username}` : ''}</UserName>
 								{!props.currentUser ? <FollowButton>Follow</FollowButton> : null}
 
 								<UserRelation>

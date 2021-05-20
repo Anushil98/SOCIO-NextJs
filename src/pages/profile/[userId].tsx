@@ -1,9 +1,27 @@
-import React from 'react';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { MainLayout } from '../../components/MainLayout';
 import Profile from '../../components/Profile.tsx/Profile';
+import checkAuth from '../../helpers/checkAuth';
 
 function UserProfile(props: { userId: string }) {
-	return <MainLayout Middle={<Profile currentUser={false} userId={props.userId} />} />;
+	const [ LoggedInUser, setLoggedInUser ] = useState(null);
+	useEffect(() => {
+		checkAuth().then((res) => {
+			const { status, userId } = res;
+			if (status) {
+				setLoggedInUser(userId);
+			} else {
+				Router.push('/');
+			}
+		});
+	}, []);
+	return (
+		<MainLayout
+			loggedInUser={LoggedInUser}
+			Middle={<Profile currentUser={props.userId === LoggedInUser} userId={props.userId} />}
+		/>
+	);
 }
 
 export default UserProfile;

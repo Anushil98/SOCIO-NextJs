@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { getLoggedInUser } from '../api/User/getLoggedInUser';
 import { getUserDetails } from '../api/User/getUserDetails';
 import { LoggedInUserContext } from '../helpers/LoggedInUserContext';
+import logout from '../helpers/logout';
 import { NavBarContext, OptionType } from '../helpers/NavBarContext';
 import Navbar from './Navbar';
 
@@ -21,7 +22,7 @@ const Aside = styled.aside`
 
 const Close = styled.div`
 	width: 100%;
-	height: 55px;
+	height: 65px;
 	display: flex;
 	justify-content: space-between;
 	font-size: 50px;
@@ -69,7 +70,13 @@ const MyProfile = styled.div`
 	align-items: center;
 `;
 
-export const MainLayout = (props: { Middle: any; leftSideBar?: any; rightSideBar?: any; children?: any }) => {
+export const MainLayout = (props: {
+	loggedInUser: string;
+	Middle: any;
+	leftSideBar?: any;
+	rightSideBar?: any;
+	children?: any;
+}) => {
 	const [ showCreatePost, setshowCreatePost ] = useState(0);
 	const [ loggedInUser, setloggedinuser ] = useState<string>(null);
 	const [ loggedInUserAvatar, setloggedInUserAvatar ] = useState<string>(null);
@@ -79,7 +86,7 @@ export const MainLayout = (props: { Middle: any; leftSideBar?: any; rightSideBar
 	};
 	const [ InputPropsForNavBar, setInputPropsForNavBar ] = useState<{
 		postId?: string;
-		userId?: String;
+		userId?: string;
 		grpId?: string;
 		options?: OptionType;
 	}>({});
@@ -93,7 +100,7 @@ export const MainLayout = (props: { Middle: any; leftSideBar?: any; rightSideBar
 	useEffect(
 		() => {
 			if (sideBar === 1) {
-				getUserDetails(loggedInUser).then((user) => {
+				getUserDetails(props.loggedInUser).then((user) => {
 					setloggedInUserAvatar(user.avatar);
 				});
 			}
@@ -113,7 +120,7 @@ export const MainLayout = (props: { Middle: any; leftSideBar?: any; rightSideBar
 		});
 	};
 	return (
-		<LoggedInUserContext.Provider value={'abcd'}>
+		<LoggedInUserContext.Provider value={props.loggedInUser}>
 			<NavBarContext.Provider value={{ changeOptions, showSideBar: setsideBar }}>
 				{sideBar ? (
 					<Aside>
@@ -123,7 +130,7 @@ export const MainLayout = (props: { Middle: any; leftSideBar?: any; rightSideBar
 									Router.push('/me');
 								}}
 							>
-								<Avatar bgImg={loggedInUserAvatar || '/default/avatar.jpg'} />
+								<Avatar bgImg={loggedInUserAvatar || '/default/avatar.svg'} />
 								<Option2>My Profile</Option2>
 							</MyProfile>
 							<CloseIcon
@@ -154,6 +161,7 @@ export const MainLayout = (props: { Middle: any; leftSideBar?: any; rightSideBar
 							>
 								Groups
 							</Option>
+							<Option onClick={() => logout()}>Logout</Option>
 						</Menu>
 					</Aside>
 				) : null}

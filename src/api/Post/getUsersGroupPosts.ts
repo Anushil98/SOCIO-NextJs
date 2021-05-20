@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { Post } from '../../types/post.type';
 
-export const getPostApi = (page: number): Promise<Post[]> => {
+export const getUsersGroupPosts = (page: number): Promise<Post[]> => {
 	return new Promise((resolve, reject) => {
 		const querydata = JSON.stringify({
 			query: `query($page:Int!){
-			getFeedPosts(page:$page){
+			getUsersGroupPosts(page:$page){
 				postId
 				User{
 				id
@@ -50,8 +50,8 @@ export const getPostApi = (page: number): Promise<Post[]> => {
 				if (errors) {
 					reject('Feed Post fetch Error');
 				}
-				console.log(data.getFeedPosts);
-				resolve(data.getFeedPosts);
+				console.log(data.getUsersGroupPosts);
+				resolve(data.getUsersGroupPosts);
 			})
 			.catch(function(error) {
 				console.log(error);

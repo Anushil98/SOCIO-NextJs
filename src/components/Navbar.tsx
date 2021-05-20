@@ -1,7 +1,6 @@
 import MenuIcon from '@material-ui/icons/Menu';
 import Router from 'next/router';
 import React, { useRef } from 'react';
-import logout from '../helpers/logout';
 import { OptionType } from '../helpers/NavBarContext';
 import useOutsideAlerter from '../helpers/outsideClick';
 import { CreatePost } from './CreatePost/createPost';
@@ -9,7 +8,7 @@ import { CreatePost } from './CreatePost/createPost';
 export default function Navbar(props: {
 	data: {
 		postId?: string;
-		userId?: String;
+		userId?: string;
 		grpId?: string;
 		options?: OptionType;
 	};
@@ -25,7 +24,7 @@ export default function Navbar(props: {
 			<div className="NavBarTop">
 				<div className="NavBarTop-Left">
 					<MenuIcon fontSize="large" onClick={() => props.showSideBar((x) => (x ? 0 : 1))} />
-					<img src="/FullLogoVertical.svg" alt="Logo" className="Logo" onClick={() => logout()} />
+					<img src="/FullLogoVertical.svg" alt="Logo" className="Logo" />
 				</div>
 				<div className="NavBarTop-Right">
 					<img

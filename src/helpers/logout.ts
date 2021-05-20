@@ -1,5 +1,7 @@
+import Router from 'next/router';
 
 export default function logout() {
-	localStorage.removeItem('Authentication');
-	window.location.href = "/";
+	localStorage.removeItem('RefreshAccessToken');
+	localStorage.removeItem('AccessToken');
+	Router.push('/');
 }

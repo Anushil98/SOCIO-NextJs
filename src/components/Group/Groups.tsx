@@ -1,4 +1,5 @@
 import AddIcon from '@material-ui/icons/Add';
+import Router from 'next/router';
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { LoggedInUserContext } from '../../helpers/LoggedInUserContext';
@@ -128,6 +129,9 @@ export default function Groups() {
 													bgImg={group.cover || '/default/cover.jpg'}
 													key={index}
 													ref={groups.length - 1 === index ? lastElement : null}
+													onClick={() => {
+														Router.push(`/groups/${group.grpId}`);
+													}}
 												>
 													<p>{group.grpName}</p>
 												</GroupCard>

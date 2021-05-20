@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { createPostApi } from '../../api/Post/createPost';
@@ -47,7 +48,7 @@ const PostButton = styled.button`
 export function CreatePost(props: {
 	data: {
 		postId?: string;
-		userId?: String;
+		userId?: string;
 		grpId?: string;
 		options?: OptionType;
 	};
@@ -56,9 +57,11 @@ export function CreatePost(props: {
 	const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		settext(e.target.value);
 	};
-	const createPost = async (userId: string) => {
-		const post: PostInput = { text, userId };
+	const createPost = async () => {
+		const post: PostInput = { text, userId: props.data.userId };
+		console.log(props.data, text);
 		await createPostApi(post);
+		Router.reload();
 	};
 	return (
 		<LoggedInUserContext.Consumer>
@@ -72,7 +75,7 @@ export function CreatePost(props: {
 							onChange={(e) => onChangeHandler(e)}
 						/>
 						<Bottom>
-							<PostButton onClick={() => createPost(val)}>Post</PostButton>
+							<PostButton onClick={() => createPost()}>Post</PostButton>
 						</Bottom>
 					</Create>
 				);

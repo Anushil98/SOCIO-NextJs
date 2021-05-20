@@ -1,6 +1,7 @@
-import axios, { AxiosRequestConfig } from 'axios';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { login } from '../api/User/login';
+import addAuthToken from '../helpers/addAuthToken';
 
 export const Login = () => {
 	const [ username, setUsername ] = useState('');
@@ -9,46 +10,20 @@ export const Login = () => {
 
 	useEffect(
 		() => {
-			document.title = `LOGIN ${success === undefined ? '' : success ? 'Success' : 'Failed'}`;
+			document.title = `LOGIN ${success === undefined ? '' : success}`;
 		},
-		[ username, success ]
+		[ success ]
 	);
-	const login = async () => {
-		Router.push('/');
-		localStorage.setItem('Authentication', 'testVlue');
-
-		const data = JSON.stringify({
-			query: `mutation{
-            login(
-                email:"${username}",
-                password:"${password}"
-            ){
-                accessToken
-                refreshAccessToken
-                userId 
-            }
-            }`,
-			variables: {}
-		});
-
-		const config: AxiosRequestConfig = {
-			method: 'post',
-			url: process.env.NEXT_PUBLIC_SERVER_URL,
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			data: data
-		};
-		try {
-			const response = await axios(config);
-			setSuccessState(response.data.data.login !== null ? true : false);
-			if (response.data.data && response.data.data.login) {
-				localStorage.setItem('Authentication', response.data.data.login.accessToken);
-				Router.push('/HomePage');
-			}
-		} catch (err) {
-			console.error(err);
-		}
+	const LoginHandler = () => {
+		login(username, password)
+			.then((res) => {
+				addAuthToken(res);
+				Router.push('/');
+			})
+			.catch((err) => {
+				console.error(err);
+				setSuccessState('Failed');
+			});
 	};
 	return (
 		<div id="Login">
@@ -69,7 +44,7 @@ export const Login = () => {
 					/>
 				</div>
 				<div>
-					<input type="button" onClick={() => login()} value="Login" />
+					<input type="button" onClick={() => LoginHandler()} value="Login" />
 				</div>
 			</form>
 		</div>

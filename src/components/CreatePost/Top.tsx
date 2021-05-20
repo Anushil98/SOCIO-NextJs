@@ -15,16 +15,11 @@ function Top(props: { userId: string }) {
 	const [ user, setuser ] = useState<User>(null);
 
 	useEffect(() => {
-		let timer = null;
-		getUserDetails(props.userId).then((user) => {
-			timer = setTimeout(() => {
+		if (user === null)
+			getUserDetails(props.userId).then((user) => {
 				setuser(user);
 				setshowLoader(false);
-			}, 500);
-		});
-		return () => {
-			clearTimeout(timer);
-		};
+			});
 	});
 	return (
 		<TopPart>

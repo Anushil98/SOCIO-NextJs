@@ -23,7 +23,7 @@ const Circle =
 	min-width: 80px;
 	background-image: ${(props) => {
 		console.log(props.imageUrl);
-		return `url(${props.imageUrl})`;
+		return `url(${props.imageUrl || '/default/avatar.svg'})`;
 	}};
     background-repeat: no-repeat;
     background-size: cover;

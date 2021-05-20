@@ -1,14 +1,35 @@
-import { posts } from '../../staticData/posts';
-import { users } from '../../staticData/users';
+import axios, { AxiosRequestConfig } from 'axios';
 import { PostInput } from '../../types/post.type';
-import { User } from '../../types/user.type';
 
-export const createPostApi = async (data: PostInput) => {
+export const createPostApi = async (postData: PostInput) => {
 	try {
-		const { text, userId } = data;
-		const user: User = users.filter((usr) => usr.id === userId)[0];
-		posts.unshift({ postId: `${posts.length}`, userId, text, User: user, createdDate: new Date().toISOString() });
-		console.log(posts[posts.length]);
+		const querydata = JSON.stringify({
+			query: `mutation($text:String!,$grpId:String){
+			createPost(data:{
+				text:$text
+				grpId:$grpId
+			}){postId
+			userId
+			text}
+			}`,
+			variables: { ...postData }
+		});
+
+		const config: AxiosRequestConfig = {
+			method: 'post',
+			url: 'http://localhost:5000/graphql',
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
+				'Content-Type': 'application/json'
+			},
+			data: querydata
+		};
+
+		const response = await axios(config);
+		const { data, errors } = response.data;
+		if (errors) {
+			throw new Error(errors.message);
+		}
 	} catch (err) {
 		throw new Error('Post Creation Failed');
 	}

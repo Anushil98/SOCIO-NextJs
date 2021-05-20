@@ -12,3 +12,10 @@ export interface User {
   updateDate?: string;
 }
 export type UserType = "Private" | "Public";
+
+
+export interface AuthPayload {
+  accessToken: string;
+  refreshAccessToken: string;
+  userId: string;
+}

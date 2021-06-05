@@ -1,33 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { invite } from "../../types/invite.type";
+import { invite, InviteStateEnum } from "../../types/invite.type";
 
-export const getInvitesApi = async (page: number): Promise<invite[]> => {
+export const actionOnInvite = async (action:InviteStateEnum,grpId:string,inviteId:string): Promise<invite> => {
 	const querydata = JSON.stringify({
-		query: `query($page:Int!){
-  getInvites(page:$page){
-    InviteId
-   	 Host{
-      id
-      username
-      firstname
-      lastname
-      avatar
-    }
-    guestId
-    Guest{
-      id
-    }
-    Group{
-      grpId
-      grpName
-      grpHandle
-      grpBio
-    }
-    createdDate
-    InviteState
-    
-  }
-}`,variables:{page}
+		query: `mutation($action:InviteStateEnum!,$grpId:String!,$inviteId:String!){
+  ActionOnInvite(action:$action,grpId:$grpId,inviteId:$inviteId)
+}`,variables:{action,grpId,inviteId}
 	});
 
 	const config: AxiosRequestConfig = {
@@ -45,5 +23,5 @@ export const getInvitesApi = async (page: number): Promise<invite[]> => {
 	if (errors) {
 		throw new Error('Invites Api error');
 	}
-	return data.getInvites;
+	return data.ActionOnInvite;
 };

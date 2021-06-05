@@ -12,6 +12,7 @@ export default function Navbar(props: {
 		grpId?: string;
 		options?: OptionType;
 	};
+	showNavBar?: boolean;
 	changeOptions: (data: { postId?: string; userId?: string; grpId?: string; options?: OptionType }) => void;
 	showSideBar: React.Dispatch<React.SetStateAction<number>>;
 }) {
@@ -37,40 +38,46 @@ export default function Navbar(props: {
 					/>
 				</div>
 			</div>
-			<div className="NavBarBottom">
-				{props.data.options && <div className="ShowHaze" />}
-				{props.data.options !== undefined ? (
-					<div
-						className="ShowBottomBar"
-						key="rev"
-						onClick={() => {
-							props.changeOptions({ options: undefined });
-						}}
-					>
-						<img src="/Full Logo.svg" className="rotateCross" />
-					</div>
-				) : (
-					<div
-						className="ShowBottomBar"
-						key="for"
-						onClick={() => {
-							props.changeOptions({ userId: 'abcd', options: OptionType.CreatePost });
-						}}
-					>
-						<img src="/Full Logo.svg" />
-					</div>
-				)}
-				<div className="BottomBarMain" ref={wrapper}>
-					{(props.data.options === 'postoptions' && (
-						<div className="PostOptions">
-							<div className="DeletePost">Delete</div>
-							<div className="SharePost">Share</div>
-							<div className="ReportPost">Report</div>
+			{props.showNavBar ? (
+				<div className="NavBarBottom">
+					{props.data.options && <div className="ShowHaze" />}
+					{props.data.options !== undefined ? (
+						<div
+							className="ShowBottomBar"
+							key="rev"
+							onClick={() => {
+								props.changeOptions({ options: undefined });
+							}}
+						>
+							<img src="/Full Logo.svg" className="rotateCross" />
 						</div>
-					)) ||
-						(props.data.options === 'createpost' && <CreatePost data={props.data} />)}
+					) : (
+						<div
+							className="ShowBottomBar"
+							key="for"
+							onClick={() => {
+								props.changeOptions({
+									userId: props.data.userId,
+									grpId: props.data.grpId,
+									options: OptionType.CreatePost
+								});
+							}}
+						>
+							<img src="/Full Logo.svg" />
+						</div>
+					)}
+					<div className="BottomBarMain" ref={wrapper}>
+						{(props.data.options === 'postoptions' && (
+							<div className="PostOptions">
+								<div className="DeletePost">Delete</div>
+								<div className="SharePost">Share</div>
+								<div className="ReportPost">Report</div>
+							</div>
+						)) ||
+							(props.data.options === 'createpost' && <CreatePost data={props.data} />)}
+					</div>
 				</div>
-			</div>
+			) : null}
 		</div>
 	);
 }

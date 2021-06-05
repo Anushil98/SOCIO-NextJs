@@ -16,11 +16,11 @@ export default function Home(props: { deviceInfo: any }) {
 	// useOutsideAlerter(wrapper);
 
 	if (typeof window !== 'undefined') {
-		const { hasMore, loading, posts } = FeedPostFetch(page);
+		const { hasMore, feedloading, posts } = FeedPostFetch(page);
 		const observer = useRef(null);
 		const lastElement = useCallback(
 			(node) => {
-				if (loading) return;
+				if (feedloading) return;
 				if (observer.current) {
 					observer.current.disconnect();
 				}
@@ -36,7 +36,7 @@ export default function Home(props: { deviceInfo: any }) {
 					observer.current.observe(node);
 				}
 			},
-			[ loading, hasMore ]
+			[ feedloading, hasMore ]
 		);
 
 		const { deviceInfo } = props;
@@ -63,8 +63,11 @@ export default function Home(props: { deviceInfo: any }) {
 			<MainLayout
 				loggedInUser={loggedInUser}
 				leftSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}
-				Middle={<Panel feed={true} posts={posts} refProp={lastElement} hasMore={hasMore} loading={loading} />}
+				Middle={
+					<Panel feed={true} posts={posts} refProp={lastElement} hasMore={hasMore} loading={feedloading} />
+				}
 				rightSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}
+				showNavbar={true}
 			>
 				<Head>
 					<title>SOCIO</title>

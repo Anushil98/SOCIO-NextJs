@@ -1,9 +1,12 @@
 import AddIcon from '@material-ui/icons/Add';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import Router from 'next/router';
 import React, { useCallback, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { LoggedInUserContext } from '../../helpers/LoggedInUserContext';
 import Loader from '../Loaders/Loader';
+import CreateGroupCard from './CreateGroupCard';
 import { FetchGroups } from './FetchGroup';
 import GroupPosts from './GroupPosts';
 
@@ -38,6 +41,15 @@ const GroupsScroll = styled.div`
 	}
 	::-webkit-scrollbar-thumb {
 		display: none;
+	}
+	@media only screen and (min-width: 840px) {
+		width: 500px;
+		::-webkit-scrollbar-thumb {
+			display: inline;
+		}
+		::-webkit-scrollbar {
+			width: 2px;
+		}
 	}
 `;
 const GroupCard =
@@ -85,10 +97,40 @@ const CreateGroup = styled.div`
 		margin: 0px 10px;
 	}
 `;
+const NoGroups = styled.div`
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 100px 0 0 0;
+	p {
+		width: 100%;
+		height: max-content;
+		color: var(--text-color);
+		background-color: var(--div-color);
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+	a {
+		outline: none;
+	}
+	svg {
+		width: 100%;
+		height: 100px;
+		color: var(--div-color);
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+`;
 export default function Groups() {
 	const [ page, setpage ] = useState(1);
 	const { hasMore, loading, groups } = FetchGroups(page);
 	const observer = useRef(null);
+	const [ showCreateClub, setshowCreateClub ] = useState(false);
 	const lastElement = useCallback(
 		(node) => {
 			if (loading) return;
@@ -118,27 +160,54 @@ export default function Groups() {
 							userId={value}
 							children={
 								<GroupSection>
-									<CreateGroup>
+									<CreateGroup
+										onClick={() => {
+											console.log('chel');
+											setshowCreateClub((x: boolean) => !x);
+										}}
+									>
 										<AddIcon />
 										Create a group
 									</CreateGroup>
-									<GroupsScroll>
-										{groups.map((group, index) => {
-											return (
-												<GroupCard
-													bgImg={group.cover || '/default/cover.jpg'}
-													key={index}
-													ref={groups.length - 1 === index ? lastElement : null}
-													onClick={() => {
-														Router.push(`/groups/${group.grpId}`);
-													}}
-												>
-													<p>{group.grpName}</p>
-												</GroupCard>
-											);
-										})}
-										{loading ? <Loader /> : null}
-									</GroupsScroll>
+									{showCreateClub ? (
+										ReactDOM.createPortal(
+											<CreateGroupCard userId={value} close={setshowCreateClub} />,
+											document.body
+										)
+									) : null}
+									{groups.length > 0 ? (
+										<GroupsScroll>
+											{groups.map((group, index) => {
+												return (
+													<GroupCard
+														bgImg={group.cover || '/default/cover.jpg'}
+														key={index}
+														ref={groups.length - 1 === index ? lastElement : null}
+														onClick={() => {
+															Router.push(`/groups/${group.grpId}`);
+														}}
+													>
+														<p>{group.grpName}</p>
+													</GroupCard>
+												);
+											})}
+											{loading ? <Loader /> : null}
+										</GroupsScroll>
+									) : (
+										<NoGroups>
+											<ErrorOutlineIcon fontSize={'inherit'} />
+											<p>
+												You are not a member of any group
+												<p>
+													Check out your invites{' '}
+													<a href={'/invites'}>
+														<u>here</u>
+													</a>
+												</p>
+												<p>or create a group</p>
+											</p>
+										</NoGroups>
+									)}
 								</GroupSection>
 							}
 						/>

@@ -1,18 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Group } from '../../types/group.type';
 
-export const getMyGroupsApi = (page: number): Promise<Group[]> => {
+export const CheckMembership = (grpId: string): Promise<boolean> => {
 	return new Promise((resolve, reject) => {
 		const querydata = JSON.stringify({
-			query: `query($page:Int!){
-			getUsersGroups(page:$page){
-				grpId
-				grpName
-				grpHandle
-				ownerId
-			}
-			}`,
-			variables: { page: page }
+			query: `query($grpId:String!){
+            CheckGroupMembership(grpId:$grpId)
+            }`,
+			variables: { grpId }
 		});
 
 		const config: AxiosRequestConfig = {
@@ -31,7 +25,7 @@ export const getMyGroupsApi = (page: number): Promise<Group[]> => {
 				if (errors) {
 					reject(errors.message);
 				}
-				resolve(data.getUsersGroups);
+				resolve(data.CheckGroupMembership);
 			})
 			.catch(function(error) {
 				reject(error);

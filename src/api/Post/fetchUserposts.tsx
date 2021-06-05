@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Post } from '../../types/post.type';
-import { getPostApi } from './getPosts';
+import { getUserPosts } from './getUserPostApi';
 
-export function FeedPostFetch(page: number): { posts: Array<Post>; feedloading: boolean; hasMore: boolean } {
+export function UserPostsFetch(
+	page: number,
+	userId: string
+): { posts: Array<Post>; feedloading: boolean; hasMore: boolean } {
 	const [ loading, setloading ] = useState(true);
 	const [ hasMore, sethasMore ] = useState(false);
 	const [ posts, setposts ] = useState([]);
 	useEffect(
 		() => {
 			setloading(true);
-			getPostApi(page).then((posts) => {
+			getUserPosts(page, userId).then((posts) => {
 				setposts((prev) => [ ...prev, ...posts ]);
 				if (posts.length === 3) {
 					sethasMore(true);

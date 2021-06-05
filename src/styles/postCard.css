@@ -119,6 +119,7 @@
 	max-width: 90px;
 	background-color: none;
 	backdrop-filter: blur(41px);
+	backdrop-filter: contrast(0.5);
 	position: absolute;
 	top: 35%;
 	border-radius: 0 50% 50% 0;
@@ -130,6 +131,7 @@
 	max-width: 90px;
 	background-color: none;
 	backdrop-filter: blur(41px);
+	backdrop-filter: contrast(0.5);
 	position: absolute;
 	top: 35%;
 	right: 0;

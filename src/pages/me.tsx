@@ -20,7 +20,11 @@ export default function me() {
 		});
 		if (LoggedInUser)
 			return (
-				<MainLayout loggedInUser={LoggedInUser} Middle={<Profile currentUser={true} userId={LoggedInUser} />}>
+				<MainLayout
+					loggedInUser={LoggedInUser}
+					Middle={<Profile currentUser={true} userId={LoggedInUser} />}
+					showNavbar={true}
+				>
 					<Head>
 						<title>My Profile</title>
 					</Head>

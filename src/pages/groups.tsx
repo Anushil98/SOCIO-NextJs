@@ -20,7 +20,7 @@ export default function groups() {
 		});
 		if (LoggedInUser)
 			return (
-				<MainLayout loggedInUser={LoggedInUser} Middle={<Groups />}>
+				<MainLayout loggedInUser={LoggedInUser} Middle={<Groups />} showNavbar={false}>
 					<Head>
 						<title>My Groups</title>
 					</Head>

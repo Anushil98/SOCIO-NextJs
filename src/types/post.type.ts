@@ -1,3 +1,5 @@
+
+import { Group } from "./group.type";
 import { User } from "./user.type";
 
 export interface Media {
@@ -20,13 +22,13 @@ export enum PostType {
 
 export interface Post {
   postId: string;
-//   Group: Group;
   grpId?: string;
   Parent?: Post;
   parentId?: string;
   HasChildren?: boolean;
   children?: Post[];
   User: User;
+  Group?:Group;
   userId: string;
   text?: string;
   Media?: Media[];

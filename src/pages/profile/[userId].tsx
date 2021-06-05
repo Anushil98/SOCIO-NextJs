@@ -20,6 +20,7 @@ function UserProfile(props: { userId: string }) {
 		<MainLayout
 			loggedInUser={LoggedInUser}
 			Middle={<Profile currentUser={props.userId === LoggedInUser} userId={props.userId} />}
+			showNavbar={false}
 		/>
 	);
 }

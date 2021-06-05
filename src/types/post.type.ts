@@ -22,14 +22,13 @@ export enum PostType {
 
 export interface Post {
   postId: string;
-//   Group: Group;
   grpId?: string;
   Parent?: Post;
   parentId?: string;
   HasChildren?: boolean;
   children?: Post[];
   User: User;
-  Group:Group;
+  Group?:Group;
   userId: string;
   text?: string;
   Media?: Media[];

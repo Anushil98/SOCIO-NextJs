@@ -147,7 +147,7 @@ const Collapse =
 		justify-content: center;
 	}
 `;
-export default function GroupMainPage(props: { grpId: string }) {
+export default function GroupMainPage(props: { grpId: string; ismember: boolean }) {
 	const [ page, setpage ] = useState(1);
 	const { hasMore, loading, members } = FetchMembers(page, props.grpId);
 	const observer = useRef(null);
@@ -187,14 +187,14 @@ export default function GroupMainPage(props: { grpId: string }) {
 					return (
 						<GroupPosts
 							userId={value}
-							grpId={props.grpId}
+							grpId={props.ismember ? props.grpId : null}
 							children={
 								<GroupDetails>
 									<Cover cover={group && group.cover ? group.cover : '/default/cover.jpg'} />
 									<GroupIdentifiers>
 										<div className="grpName">{group.grpName}</div>
 										<div className="grpHandle">@{group.grpHandle}</div>
-										<button className="join">Join</button>
+										{!props.ismember ? <button className="join">Join</button> : null}
 										<button className="TotMem">6 Members</button>
 									</GroupIdentifiers>
 									<Collapse onClick={() => setshowMember((x) => !x)} showMargin={!showMember}>

@@ -53,7 +53,7 @@ export default function SearchBar(props: {
 					(props.type === 'All' && 'users ') ||
 					(props.type === 'Group' && 'groups')}`}
 				onChange={(e) => {
-					props.changeValue(e.currentTarget.value);
+					if (e.currentTarget.value.length > 0) props.changeValue(e.currentTarget.value);
 				}}
 			/>
 			<ArrowBackIcon

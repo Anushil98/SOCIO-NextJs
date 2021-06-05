@@ -91,6 +91,9 @@ export default function SearchList(props: {
 	return (
 		<SearchPanel>
 			{props.searchItems.map((item, index) => {
+				if (item.user === null && item.group === null) {
+					return null;
+				}
 				return props.searchItems.length - 1 === index ? (
 					<SearchCard
 						key={index}
@@ -103,7 +106,7 @@ export default function SearchList(props: {
 						<Avatar
 							bgImg={
 								item.group ? (
-									item.group.cover || '/default/avatar.jpg'
+									item.group.cover || '/default/cover.jpg'
 								) : (
 									item.user.avatar || '/default/avatar.jpg'
 								)
@@ -114,6 +117,7 @@ export default function SearchList(props: {
 								{item.group ? item.group.grpName : `${item.user.firstname} ${item.user.lastname}`}
 							</Name>
 							<Name>@{item.group ? item.group.grpHandle : item.user.username}</Name>
+							<Name>In {item.group ? 'groups' : 'users'}</Name>
 						</Details>
 					</SearchCard>
 				) : (
@@ -127,9 +131,12 @@ export default function SearchList(props: {
 						<Avatar
 							bgImg={
 								item.group ? (
-									item.group.cover || '/default/avatar.jpg'
+									item.group.cover || '/default/cover.jpg'
+								) : item.user.avatar ? (
+									`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(item.user.avatar)
+										.filename}&type=${'LowRes'}`
 								) : (
-									item.user.avatar || '/default/avatar.jpg'
+									'/default/avatar.svg'
 								)
 							}
 						/>
@@ -138,6 +145,7 @@ export default function SearchList(props: {
 								{item.group ? item.group.grpName : `${item.user.firstname} ${item.user.lastname}`}
 							</Name>
 							<Name>@{item.group ? item.group.grpHandle : item.user.username}</Name>
+							<Name>In {item.group ? 'groups' : 'users'}</Name>
 						</Details>
 					</SearchCard>
 				);

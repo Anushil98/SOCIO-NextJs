@@ -4,13 +4,19 @@ import { PostInput } from '../../types/post.type';
 export const createPostApi = async (postData: PostInput) => {
 	try {
 		const querydata = JSON.stringify({
-			query: `mutation($text:String!,$grpId:String){
+			query: `mutation($text:String!,$grpId:String,$Media:[MediaInput]){
 			createPost(data:{
 				text:$text
 				grpId:$grpId
+				Media:$Media
 			}){postId
 			userId
-			text}
+			text
+			Media{
+				filename
+				baseurl
+			}
+			}
 			}`,
 			variables: { ...postData }
 		});
@@ -27,6 +33,7 @@ export const createPostApi = async (postData: PostInput) => {
 
 		const response = await axios(config);
 		const { data, errors } = response.data;
+		console.log(data)
 		if (errors) {
 			throw new Error(errors.message);
 		}

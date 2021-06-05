@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getLoggedInUser } from '../api/User/getLoggedInUser';
 import { getUserDetails } from '../api/User/getUserDetails';
+import { CurrentGroupContext } from '../helpers/CurrentGroupContext';
 import { LoggedInUserContext } from '../helpers/LoggedInUserContext';
 import logout from '../helpers/logout';
 import { NavBarContext, OptionType } from '../helpers/NavBarContext';
@@ -72,7 +73,10 @@ const MyProfile = styled.div`
 
 export const MainLayout = (props: {
 	loggedInUser: string;
+
 	Middle: any;
+	showNavbar: boolean;
+	currentGroup?: string;
 	leftSideBar?: any;
 	rightSideBar?: any;
 	children?: any;
@@ -101,7 +105,9 @@ export const MainLayout = (props: {
 		() => {
 			if (sideBar === 1) {
 				getUserDetails(props.loggedInUser).then((user) => {
-					setloggedInUserAvatar(user.avatar);
+					setloggedInUserAvatar(
+						`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(user.avatar).filename}&type=${'LowRes'}`
+					);
 				});
 			}
 		},
@@ -120,81 +126,84 @@ export const MainLayout = (props: {
 		});
 	};
 	return (
-		<LoggedInUserContext.Provider value={props.loggedInUser}>
-			<NavBarContext.Provider value={{ changeOptions, showSideBar: setsideBar }}>
-				{sideBar ? (
-					<Aside>
-						<Close>
-							<MyProfile
-								onClick={() => {
-									Router.push('/me');
-								}}
-							>
-								<Avatar bgImg={loggedInUserAvatar || '/default/avatar.svg'} />
-								<Option2>My Profile</Option2>
-							</MyProfile>
-							<CloseIcon
-								fontSize="inherit"
-								htmlColor="var(--text-color)"
-								onClick={() => setsideBar((x) => (x == 1 ? 0 : 1))}
-							/>
-						</Close>
-						<Menu>
-							<Option
-								onClick={() => {
-									Router.push('/');
-								}}
-							>
-								Home
-							</Option>
-							<Option
-								onClick={() => {
-									Router.push('/invites');
-								}}
-							>
-								Invites
-							</Option>
-							<Option
-								onClick={() => {
-									Router.push('/groups');
-								}}
-							>
-								Groups
-							</Option>
-							<Option onClick={() => logout()}>Logout</Option>
-						</Menu>
-					</Aside>
-				) : null}
-				<div className="MainLayout">
-					<Head>
-						<link rel="preload" href="/fonts/Skranji/Skranji-Bold.ttf" as="font" crossOrigin="" />
-						<link rel="preload" href="/fonts/Skranji/Skranji-Regular.ttf" as="font" crossOrigin="" />
-						<link rel="preload" href="/fonts/Shanti/Shanti-Regular.ttf" as="font" crossOrigin="" />
-						<link rel="icon" href="/Full Logo.svg" />
-					</Head>
-
-					<NavBarContext.Consumer>
-						{({ changeOptions, showSideBar }) => {
-							return (
-								<Navbar
-									data={InputPropsForNavBar}
-									changeOptions={changeOptions}
-									showSideBar={showSideBar}
+		<CurrentGroupContext.Provider value={props.currentGroup}>
+			<LoggedInUserContext.Provider value={props.loggedInUser}>
+				<NavBarContext.Provider value={{ changeOptions, showSideBar: setsideBar }}>
+					{sideBar ? (
+						<Aside>
+							<Close>
+								<MyProfile
+									onClick={() => {
+										Router.push('/me');
+									}}
+								>
+									<Avatar bgImg={loggedInUserAvatar || '/default/avatar.svg'} />
+									<Option2>My Profile</Option2>
+								</MyProfile>
+								<CloseIcon
+									fontSize="inherit"
+									htmlColor="var(--text-color)"
+									onClick={() => setsideBar((x) => (x == 1 ? 0 : 1))}
 								/>
-							);
-						}}
-					</NavBarContext.Consumer>
+							</Close>
+							<Menu>
+								<Option
+									onClick={() => {
+										Router.push('/');
+									}}
+								>
+									Home
+								</Option>
+								<Option
+									onClick={() => {
+										Router.push('/invites');
+									}}
+								>
+									Invites
+								</Option>
+								<Option
+									onClick={() => {
+										Router.push('/groups');
+									}}
+								>
+									Groups
+								</Option>
+								<Option onClick={() => logout()}>Logout</Option>
+							</Menu>
+						</Aside>
+					) : null}
+					<div className="MainLayout">
+						<Head>
+							<link rel="preload" href="/fonts/Skranji/Skranji-Bold.ttf" as="font" crossOrigin="" />
+							<link rel="preload" href="/fonts/Skranji/Skranji-Regular.ttf" as="font" crossOrigin="" />
+							<link rel="preload" href="/fonts/Shanti/Shanti-Regular.ttf" as="font" crossOrigin="" />
+							<link rel="icon" href="/Full Logo.svg" />
+						</Head>
 
-					<div className="ContentArea">
-						<div className="leftSideBar">{props.leftSideBar}</div>
-						<div className="Middle" id="MidArea">
-							{props.Middle}
+						<NavBarContext.Consumer>
+							{({ changeOptions, showSideBar }) => {
+								return (
+									<Navbar
+										data={InputPropsForNavBar}
+										changeOptions={changeOptions}
+										showSideBar={showSideBar}
+										showNavBar={props.showNavbar}
+									/>
+								);
+							}}
+						</NavBarContext.Consumer>
+
+						<div className="ContentArea">
+							<div className="leftSideBar">{props.leftSideBar}</div>
+							<div className="Middle" id="MidArea">
+								{props.Middle}
+							</div>
+							<div className="rightSideBar">{props.rightSideBar}</div>
 						</div>
-						<div className="rightSideBar">{props.rightSideBar}</div>
+						{props.children}
 					</div>
-					{props.children}
-				</div>
-			</NavBarContext.Provider>
-		</LoggedInUserContext.Provider>
+				</NavBarContext.Provider>
+			</LoggedInUserContext.Provider>
+		</CurrentGroupContext.Provider>
 	);
 };

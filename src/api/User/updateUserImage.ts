@@ -1,25 +1,22 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { User } from '../../types/user.type';
-export const getUserDetails = async (userId: string): Promise<User> => {
+export const updateUserImage = async (filename:string,type:"Avatar" | "Cover"): Promise<User> => {
 	try {
 		const querydata = JSON.stringify({
-			query: `query($userId:String!){
-				user:getUserDetails(userId:$userId){
-				id
-				username
-				firstname
-				lastname
-				avatar
-				cover
-				}
-				}`,
-			variables: { userId: userId }
+			query: `mutation($filename:String!,$type:UserImageEnum){
+                updateUserImage(data:{media:{
+                    filename:$filename
+                    baseurl:""
+                },type:$type})
+                }`,
+			variables: { filename,type }
 		});
 
 		var config: AxiosRequestConfig = {
 			method: 'post',
 			url: 'http://localhost:5000/graphql',
 			headers: {
+				Authorization: `Bearer ${localStorage.getItem('AccessToken')}`,
 				'Content-Type': 'application/json'
 			},
 			data: querydata
@@ -30,7 +27,7 @@ export const getUserDetails = async (userId: string): Promise<User> => {
 		if (errors) {
 			throw new Error(errors.message);
 		}
-		const user = data.user;
+		const user = data.updateUserImage;
 
 		return user;
 	} catch (err) {

@@ -56,7 +56,14 @@ const ClubRectName = styled.div`
 export default function UserDetails(props: { user: User; grpName?: string }) {
 	return (
 		<Loader>
-			<Circle imageUrl={props.user.avatar} />
+			<Circle
+				imageUrl={
+					props.user.avatar ? (
+						`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(props.user.avatar)
+							.filename}&type=${'LowRes'}`
+					) : null
+				}
+			/>
 			<Side>
 				<FullnameRect>{props.user.firstname + ' ' + props.user.lastname}</FullnameRect>
 				<UsernameRect>{props.user.username}</UsernameRect>

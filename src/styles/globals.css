@@ -25,6 +25,7 @@ body {
 	--div-color: #fff6f6;
 	--loader-color: #fff6f6;
 	--navbar-color: #ffffff;
+	--error-color: #dc8f8f4a;
 	background-color: var(--color2);
 	overflow: hidden;
 }
@@ -102,7 +103,7 @@ a {
 		width: 1fr;
 	}
 	.Middle {
-		width: 1fr;
+		width: 500px;
 	}
 }
 .Middle .Panel::-webkit-scrollbar {

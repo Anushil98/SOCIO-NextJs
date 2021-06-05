@@ -65,6 +65,7 @@ export default function Home(props: { deviceInfo: any }) {
 				leftSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}
 				Middle={<Panel feed={true} posts={posts} refProp={lastElement} hasMore={hasMore} loading={loading} />}
 				rightSideBar={deviceInfo === 'mobile' ? null : <Panel feed={false} />}
+				showNavbar={true}
 			>
 				<Head>
 					<title>SOCIO</title>

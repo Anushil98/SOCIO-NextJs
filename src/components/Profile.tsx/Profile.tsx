@@ -1,7 +1,13 @@
+import { CircularProgress } from '@material-ui/core';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import Router from 'next/router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { FeedPostFetch } from '../../api/Post/fetchFeedPosts';
+import { useFilePicker } from 'use-file-picker';
+import { uploadFiles } from '../../api/FileUpload/fileuploadRestApi';
+import { UserPostsFetch } from '../../api/Post/fetchUserposts';
 import { getUserDetails } from '../../api/User/getUserDetails';
+import { updateUserImage } from '../../api/User/updateUserImage';
 import { User } from '../../types/user.type';
 import Panel from '../panelDiv';
 
@@ -25,6 +31,7 @@ const Cover =
     background-size: cover;
     display:flex;
     align-items:center;
+	position: relative;
     justify-content:center;
 `;
 const Avatar =
@@ -39,7 +46,15 @@ const Avatar =
 	width: 100px;
 	border-radius: 50%;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
+	position: relative;
+
+	img{
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		border-radius: 50%;
+	}
 `;
 const UserDetails = styled.div`
 	height: 40%;
@@ -113,15 +128,51 @@ const FollowButton = styled.button`
 	align-self: center;
 `;
 
+const ChangeAvatar = styled.div`
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	justify-content: center;
+
+	svg {
+		margin: 2px;
+		border: 1px solid white;
+		border-radius: 50%;
+		padding: 5px;
+		backdrop-filter: contrast(0.5);
+		font-size: xx-large;
+	}
+`;
+const ChangeCover = styled.div`
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	justify-content: flex-end;
+
+	svg {
+		margin: 2px;
+		border: 1px solid white;
+		border-radius: 50%;
+		padding: 5px;
+		backdrop-filter: contrast(0.5);
+		font-size: xx-large;
+	}
+`;
+
 export default function Profile(props: { currentUser: boolean; userId?: string }) {
 	const [ userDetails, setuserDetails ] = useState<User>(null);
 	const [ counts, setCounts ] = useState<{ followers: number; followings: number }>({ followers: 5, followings: 10 });
 	const [ page, setpage ] = useState(1);
-	const { hasMore, loading, posts } = FeedPostFetch(page);
+	const { hasMore, feedloading, posts } = UserPostsFetch(page, props.userId);
+	const [ updateUserImageType, setupdateUserImageType ] = useState<'Avatar' | 'Cover'>(null);
 	const observer = useRef(null);
 	const lastElement = useCallback(
 		(node) => {
-			if (loading) return;
+			if (feedloading) return;
 			if (observer.current) {
 				observer.current.disconnect();
 			}
@@ -137,8 +188,44 @@ export default function Profile(props: { currentUser: boolean; userId?: string }
 				observer.current.observe(node);
 			}
 		},
-		[ loading, hasMore ]
+		[ feedloading, hasMore ]
 	);
+
+	const [ openFileSelector, { filesContent, loading } ] = useFilePicker({
+		accept: [ 'image/*' ],
+		readAs: 'DataURL',
+		multiple: true
+	});
+
+	const dataURLtoFile = (dataurl: string, filename: string): File => {
+		var arr = dataurl.split(','),
+			mime = arr[0].match(/:(.*?);/)[1],
+			bstr = atob(arr[1]),
+			n = bstr.length,
+			u8arr = new Uint8Array(n);
+
+		while (n--) {
+			u8arr[n] = bstr.charCodeAt(n);
+		}
+
+		return new File([ u8arr ], filename, { type: mime });
+	};
+	const updateUserImageHandler = async (file: File, type: 'Avatar' | 'Cover'): Promise<boolean> => {
+		const data = await uploadFiles([ file ]);
+		const filename = data[0].uploadfilename;
+		await updateUserImage(filename, type);
+		return true;
+	};
+	if (!loading && filesContent.length > 0) {
+		updateUserImageHandler(dataURLtoFile(filesContent[0].content, filesContent[0].name), updateUserImageType)
+			.then((res) => {
+				console.log('User Image update sucsess', res);
+				Router.reload();
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}
 
 	useEffect(() => {
 		if (userDetails === null && props.userId) {
@@ -156,12 +243,62 @@ export default function Profile(props: { currentUser: boolean; userId?: string }
 					posts={posts}
 					children={
 						<UserDetailsSection>
-							<Cover cover={userDetails && userDetails.cover ? userDetails.cover : '/default/cover.jpg'}>
+							<Cover
+								cover={
+									userDetails && userDetails.cover ? (
+										`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(userDetails.cover)
+											.filename}&type=${'LowRes'}`
+									) : (
+										'/default/cover.jpg'
+									)
+								}
+							>
 								<Avatar
 									bgImg={
-										userDetails && userDetails.avatar ? userDetails.avatar : '/default/avatar.svg'
+										userDetails && userDetails.avatar ? (
+											`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(userDetails.avatar)
+												.filename}&type=${'LowRes'}`
+										) : (
+											'/default/avatar.svg'
+										)
 									}
-								/>
+								>
+									<img
+										src={
+											userDetails && userDetails.avatar ? (
+												`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(
+													userDetails.avatar
+												).filename}&type=${'LowRes'}`
+											) : (
+												'/default/avatar.svg'
+											)
+										}
+									/>
+									{props.currentUser ? (
+										<ChangeAvatar>
+											{!loading ? (
+												<PhotoCameraIcon
+													onClick={() => {
+														setupdateUserImageType('Avatar');
+														openFileSelector();
+													}}
+												/>
+											) : (
+												<CircularProgress />
+											)}
+										</ChangeAvatar>
+									) : null}
+								</Avatar>
+								{props.currentUser ? (
+									<ChangeCover>
+										<PhotoCameraIcon
+											onClick={() => {
+												setupdateUserImageType('Cover');
+												openFileSelector();
+											}}
+										/>
+									</ChangeCover>
+								) : null}
 							</Cover>
 							<UserDetails>
 								<FullName>
@@ -179,7 +316,7 @@ export default function Profile(props: { currentUser: boolean; userId?: string }
 					}
 					refProp={lastElement}
 					hasMore={hasMore}
-					loading={loading}
+					loading={feedloading}
 				/>
 			) : null}
 		</ProfileSection>

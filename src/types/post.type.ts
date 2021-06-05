@@ -1,3 +1,5 @@
+
+import { Group } from "./group.type";
 import { User } from "./user.type";
 
 export interface Media {
@@ -27,6 +29,7 @@ export interface Post {
   HasChildren?: boolean;
   children?: Post[];
   User: User;
+  Group:Group;
   userId: string;
   text?: string;
   Media?: Media[];

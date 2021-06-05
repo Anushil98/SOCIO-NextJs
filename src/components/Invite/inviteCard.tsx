@@ -104,7 +104,16 @@ export default function InviteCardDiv(props: { key: string; propref: (node: any)
 	};
 	return (
 		<InviteCard key={invite.InviteId} ref={propref}>
-			<Avatar bgImg={invite.Host.avatar || '/default/avatar.jpg'} />
+			<Avatar
+				bgImg={
+					invite.Host.avatar ? (
+						`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(invite.Host.avatar)
+							.filename}&type=${'LowRes'}`
+					) : (
+						'/default/avatar.jpg'
+					)
+				}
+			/>
 			<Message>
 				<div>
 					<span>

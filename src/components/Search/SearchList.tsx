@@ -1,7 +1,9 @@
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import Router from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
+import { createInvite } from '../../api/Invites/createInvite';
 import { Group } from '../../types/group.type';
 import { User } from '../../types/user.type';
 import Loader from '../Loaders/Loader';
@@ -26,6 +28,7 @@ const SearchCard = styled.div`
 	display: flex;
 	justify-content: flex-start;
 	padding: 5px 0px 5px 10px;
+	position: relative;
 `;
 
 const Avatar =
@@ -79,6 +82,19 @@ const NoItems = styled.div`
 	}
 `;
 
+const Invite = styled.div`
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+
+	svg {
+		font-size: xx-large;
+	}
+`;
+
 export default function SearchList(props: {
 	searchItems: {
 		group: Group;
@@ -87,7 +103,14 @@ export default function SearchList(props: {
 	hasMore: boolean;
 	loading: boolean;
 	refProp: (node: any) => void;
+	grpId?: string;
 }) {
+	const createInviteHandler = async (userId: string) => {
+		await createInvite(props.grpId, userId).then((res) => {
+			console.log(res);
+			Router.back();
+		});
+	};
 	return (
 		<SearchPanel>
 			{props.searchItems.map((item, index) => {
@@ -107,8 +130,11 @@ export default function SearchList(props: {
 							bgImg={
 								item.group ? (
 									item.group.cover || '/default/cover.jpg'
+								) : item.user.avatar ? (
+									`${process.env.NEXT_PUBLIC_ImageUrl}?name=${JSON.parse(item.user.avatar)
+										.filename}&type=${'LowRes'}`
 								) : (
-									item.user.avatar || '/default/avatar.jpg'
+									'/default/avatar.svg'
 								)
 							}
 						/>
@@ -118,6 +144,11 @@ export default function SearchList(props: {
 							</Name>
 							<Name>@{item.group ? item.group.grpHandle : item.user.username}</Name>
 							<Name>In {item.group ? 'groups' : 'users'}</Name>
+							{props.grpId && item.user && !item.user.ismember ? (
+								<Invite onClick={() => createInviteHandler(item.user.id)}>
+									<AddCircleIcon />
+								</Invite>
+							) : null}
 						</Details>
 					</SearchCard>
 				) : (
@@ -146,6 +177,11 @@ export default function SearchList(props: {
 							</Name>
 							<Name>@{item.group ? item.group.grpHandle : item.user.username}</Name>
 							<Name>In {item.group ? 'groups' : 'users'}</Name>
+							{props.grpId && item.user && !item.user.ismember ? (
+								<Invite onClick={() => createInviteHandler(item.user.id)}>
+									<AddCircleIcon />
+								</Invite>
+							) : null}
 						</Details>
 					</SearchCard>
 				);

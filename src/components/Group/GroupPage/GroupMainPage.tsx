@@ -1,5 +1,6 @@
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Router from 'next/router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getGroupDetails } from '../../../api/Post/getGroupDetails';
@@ -25,10 +26,10 @@ const GroupIdentifiers = styled.div`
 	}
 	.grpHandle {
 		font-family: 'shanti';
-		font-size: x-small;
+		font-size: small;
 		color: var(--text-color);
 	}
-	.join {
+	.invite {
 		position: absolute;
 		right: 5px;
 		top: 10px;
@@ -196,6 +197,14 @@ export default function GroupMainPage(props: { grpId: string; ismember: boolean 
 										<div className="grpHandle">@{group.grpHandle}</div>
 										{!props.ismember ? <button className="join">Join</button> : null}
 										<button className="TotMem">6 Members</button>
+										<button
+											className="invite"
+											onClick={() => {
+												Router.push(`/search/${props.grpId}`);
+											}}
+										>
+											Invite
+										</button>
 									</GroupIdentifiers>
 									<Collapse onClick={() => setshowMember((x) => !x)} showMargin={!showMember}>
 										<div className="label">Members</div>

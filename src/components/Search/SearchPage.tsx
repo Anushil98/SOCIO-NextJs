@@ -12,7 +12,7 @@ const Search = styled.div`
 	flex-direction: column;
 	justify-content: flex-start;
 `;
-export default function SearchPage(props: { types: 'User' | 'Group' | 'All'; invite?: boolean }) {
+export default function SearchPage(props: { types: 'User' | 'Group' | 'All'; grpId?: string; invite?: boolean }) {
 	const [ searchText, setsearchText ] = useState('');
 	const [ mainText, setmainText ] = useState<string>('');
 	const [ page, setpage ] = useState(1);
@@ -33,7 +33,7 @@ export default function SearchPage(props: { types: 'User' | 'Group' | 'All'; inv
 		},
 		[ searchText, changeHandler ]
 	);
-	const { hasMore, loading, items } = FetchSearchItems(page, props.types, mainText, flush);
+	const { hasMore, loading, items } = FetchSearchItems(page, props.types, mainText, flush, props.grpId);
 	const observer = useRef(null);
 	const lastElement = useCallback(
 		(node) => {
@@ -58,9 +58,15 @@ export default function SearchPage(props: { types: 'User' | 'Group' | 'All'; inv
 
 	return (
 		<Search>
-			<SearchBar type={props.types} changeValue={setsearchText} />
+			<SearchBar type={props.grpId ? 'User' : 'All'} changeValue={setsearchText} />
 			{typeof window !== 'undefined' ? (
-				<SearchList searchItems={items} hasMore={hasMore} loading={loading} refProp={lastElement} />
+				<SearchList
+					searchItems={items}
+					hasMore={hasMore}
+					loading={loading}
+					refProp={lastElement}
+					grpId={props.grpId}
+				/>
 			) : null}
 		</Search>
 	);

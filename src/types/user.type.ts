@@ -9,6 +9,7 @@ export interface User {
   avatar: string;
   cover?: string;
   createdDate?: string;
+  ismember?:string
   updateDate?: string;
 }
 export type UserType = "Private" | "Public";

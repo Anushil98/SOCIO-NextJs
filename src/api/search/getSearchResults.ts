@@ -5,12 +5,12 @@ import { User } from '../../types/user.type';
 export const searchApi = async (
 	page: number,
 	type: 'All' | 'User' | 'Group',
-	searchText: string
+	searchText: string,grpId?:string
 ): Promise<{ group: Group; user: User }[]> => {
 	if (searchText === '') return [];
 	const querydata = JSON.stringify({
-		query: `query($searchText:String!,$page:Int!){
-                searchUser(searchText:$searchText,page:$page){
+		query: `query($searchText:String!,$page:Int!,$grpId:String){
+                searchUser(searchText:$searchText,page:$page,grpId:$grpId){
                     user{
                     id
                     UserType
@@ -19,6 +19,7 @@ export const searchApi = async (
                     firstname
                     lastname 
                     avatar
+					ismember
                     }
                     group{
                     grpId
@@ -28,7 +29,7 @@ export const searchApi = async (
                     }
                 }
                 }`,
-		variables: { searchText, page }
+		variables: { searchText, page,grpId }
 	});
 
 	const config: AxiosRequestConfig = {

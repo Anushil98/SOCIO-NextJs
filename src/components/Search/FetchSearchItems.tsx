@@ -7,7 +7,8 @@ export function FetchSearchItems(
 	page: number,
 	type: 'All' | 'User' | 'Group',
 	searchText: string,
-	flush: boolean
+	flush: boolean,
+	grpId?: string
 ): { items: { group: Group; user: User }[]; loading: boolean; hasMore: boolean } {
 	const [ loading, setloading ] = useState(true);
 	const [ hasMore, sethasMore ] = useState(false);
@@ -19,7 +20,7 @@ export function FetchSearchItems(
 			} else {
 				setloading(true);
 
-				searchApi(page, type, searchText).then((group) => {
+				searchApi(page, type, searchText, grpId).then((group) => {
 					setgroups((prev) => [ ...prev, ...group ]);
 
 					if (group.length === 3) {

@@ -50,7 +50,7 @@ export default function SearchBar(props: {
 				autoCapitalize="off"
 				spellCheck="false"
 				placeholder={`Search for ${(props.type === 'All' && 'users or groups') ||
-					(props.type === 'All' && 'users ') ||
+					(props.type === 'User' && 'users to invite ') ||
 					(props.type === 'Group' && 'groups')}`}
 				onChange={(e) => {
 					if (e.currentTarget.value.length > 0) props.changeValue(e.currentTarget.value);

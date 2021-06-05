@@ -10,6 +10,7 @@ import { getUserDetails } from '../../api/User/getUserDetails';
 import { updateUserImage } from '../../api/User/updateUserImage';
 import { User } from '../../types/user.type';
 import Panel from '../panelDiv';
+import Follow from './Follow';
 
 const ProfileSection = styled.div`
 	height: 100%;
@@ -166,6 +167,9 @@ const ChangeCover = styled.div`
 export default function Profile(props: { currentUser: boolean; userId?: string }) {
 	const [ userDetails, setuserDetails ] = useState<User>(null);
 	const [ counts, setCounts ] = useState<{ followers: number; followings: number }>({ followers: 5, followings: 10 });
+	// useEffect(() => {
+
+	// }, [counts])
 	const [ page, setpage ] = useState(1);
 	const { hasMore, feedloading, posts } = UserPostsFetch(page, props.userId);
 	const [ updateUserImageType, setupdateUserImageType ] = useState<'Avatar' | 'Cover'>(null);
@@ -305,7 +309,7 @@ export default function Profile(props: { currentUser: boolean; userId?: string }
 									{userDetails ? `${userDetails.firstname} ${userDetails.lastname || ''}` : ''}
 								</FullName>
 								<UserName>@{userDetails ? `${userDetails.username}` : ''}</UserName>
-								{!props.currentUser ? <FollowButton>Follow</FollowButton> : null}
+								{!props.currentUser ? <Follow userId={props.userId} /> : null}
 
 								<UserRelation>
 									<FollowersButton>Followers {counts ? counts.followers : null}</FollowersButton>
